@@ -68,26 +68,6 @@ public class ProductService {
     }
   }
 
-  public String RegisterProduct(String account, String password, String name, String address, String birthday, String sex, String mail)
-  {
-    try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "insert into people (ACCOUNT, PASSWORD, NAME, ADDRESS, BIRTHDAY, SEX, MAIL) "
-          + "VALUES(:account, :password, :name, :address, :birthday, :sex, :mail)";
-
-      System.out.println(query);
-      connection.createQuery(query)
-          .addParameter("account", account)
-          .addParameter("password", password)
-          .addParameter("name", name)
-          .addParameter("address", address)
-          .addParameter("birthday", birthday)
-          .addParameter("sex", sex)
-          .addParameter("mail", mail)
-          .executeUpdate();
-      return "Success";
-    }
-  }
-
   public String UpdateProduct(String book_name, int price)
   {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {

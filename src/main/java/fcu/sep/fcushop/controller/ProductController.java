@@ -39,21 +39,6 @@ public class ProductController {
     return productManager.AddProduct(book_name, img_url, price, quantity, description);
   }
 
-  @RequestMapping(value="/register_product", method = RequestMethod.GET)
-  @ResponseBody
-  public String registerProduct(
-      @RequestParam("account") String account,
-      @RequestParam("password") String password,
-      @RequestParam("name") String name,
-      @RequestParam("address") String address,
-      @RequestParam("birthday") String birthday,
-      @RequestParam("sex") String sex,
-      @RequestParam("mail") String mail
-  )
-  {
-    return productManager.RegisterProduct(account, password, name, address, birthday, sex, mail);
-  }
-
   @RequestMapping(value="/update_product", method = RequestMethod.GET)
   @ResponseBody
   public String updateProduct(
