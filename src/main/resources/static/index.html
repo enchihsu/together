@@ -100,12 +100,14 @@
 
     function addProducts(products) {
       for ( let product of products ) {
-        let html = '<div class="card col-4">';
+        let html = '<div class="card col-3">';
         html += '<img src="' + product.imageUrl + '" class="card-img-top" alt="' + product.name + '">';
         html += '<div class="card-body">';
-        html += '<h5 class="card-title">' + product.name + '</h5>';
-        html += '<p class="card-text">' + product.description + '</p>';
-        html += '<a href="#" class="btn btn-primary">' + product.price + '</a>';
+        html += '<h5 class="card-title">' + "書名:"+ product.name + '</h5>';
+        html += '<p class="card-text">' + "商品剩餘數量:"+ product.quantity + '</p>';
+        html += '<p class="card-text">' + "商品描述:"+ product.description + '</p>';
+        html += '<p class="card-text">' + "商品價格:$"+ product.price + '</p>';
+        html += '<a href="#" class="btn btn-primary" >' + "加入購物車" + '</a>';
         html += '</div>';
         html += '</div>';
         $('#productList').append(html);

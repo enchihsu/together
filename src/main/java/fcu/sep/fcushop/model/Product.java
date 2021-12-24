@@ -15,6 +15,8 @@ public class Product {
 
   private int price;
 
+  private int quantity;
+
   private String description;
 
   /**
@@ -28,11 +30,12 @@ public class Product {
    * 点对 (x,y) 的水平和垂直距离.
    */
 
-  public Product(long id, String name, String imageUrl, int price, String description) {
+  public Product(long id, String name, String imageUrl, int price, int quantity, String description) {
     this.id = id;
     this.name = name;
     this.imageUrl = imageUrl;
     this.price = price;
+    this.quantity = quantity;
     this.description = description;
   }
 
@@ -66,6 +69,14 @@ public class Product {
 
   public void setPrice(int price) {
     this.price = price;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
   }
 
   public String getDescription() {
