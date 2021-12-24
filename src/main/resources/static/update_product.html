@@ -23,21 +23,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.html">首頁</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">逢甲商城</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">一中商城</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        商品管理
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="new_product.html">新增商品</a></li>
-                        <li><a class="dropdown-item" href="update_product.html">修改商品</a></li>
-                    </ul>
-                </li>
             </ul>
 
 
@@ -52,29 +37,58 @@
                     <a class="nav-link" href="#">會員中心</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
+                    <a class="nav-link" href="#">購物車(0)</a>
                 </li>
             </ul>
 
-            <form class="d-flex">
-                <input class="form-control " type="text" placeholder="商品名稱" aria-label="product name" aria-describedby="searchProduct" id="productKeyword">
-                <button class="btn btn-outline-success" type="button" id="searchProduct">Search</button>
-            </form>
+
         </div>
     </div>
 </nav>
+<aside>
+    <p>
+    <h1>會員中心</h1>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='order.html'">查詢訂單</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='like.html'">查看商品收藏</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='new_product.html'">新增商品</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='update_product.html'">修改商品</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='profile.html'">更改個人資訊</button></p>
+    </p>
+    <style>
+    aside {
+    width: 15%;
+    padding-left: .5rem;
+    margin-left: .5rem;
+    float: left;
 
+    font-style: italic,微軟正黑體;
+    color: #000000;
+    }
 
+    aside > p {
+    margin: .5rem;
+    }
+
+    p {
+    font-family: 'Fira Sans', sans-serif;
+    }
+    </style>
+</aside>
+<section>
+    <h2 class="mt-3">修改商品</h2>
 <form id="new_product_form">
+
     <div class="form-group">
-        <label>Game Name:</label>
+        <!--label for="GameName">Game Name:</label-->
+        <label>Book Name:</label>
         <input type="text" id="game_name_text" aria-label="game_name_text">
     </div>
     <div class="form-group">
+        <!--label for="Price">Price:</label-->
         <label>Price:</label>
         <input type="text" id="price_text">
     </div>
-    <button class="btn btn-outline-success" type="button" id="add_button">Add</button>
+    <button class="btn btn-outline-success" type="button" id="add_button">Update</button>
 </form>
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -89,7 +103,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 -->
-
+</section>
 <script>
     var i = 0;
     $('#add_button').click( function(){
