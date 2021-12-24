@@ -88,4 +88,8 @@ public class People{
   public void setMail(String mail) {
     this.mail = mail;
   }
+
+
+
+
 }
