@@ -53,7 +53,7 @@ public class ProductService {
   public String AddProduct(String book_name, String img_url, int price, int quantity, String description)
   {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "insert into PRODUCT (NAME, IMAGE_URL, PRICE, QUANTITY, DESCRIPTION) "
+      String query = "insert into bookstore.PRODUCT (NAME, IMAGE_URL, PRICE, QUANTITY, DESCRIPTION) "
           + "VALUES(:book_name, :img_url, :price, :quantity, :description)";
 
       System.out.println(query);
