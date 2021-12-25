@@ -28,16 +28,13 @@
 
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">登入</a>
+                    <a class="nav-link" href="#">登出</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">註冊</a>
+                    <a class="nav-link" href="membercenter">會員中心</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">會員中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">購物車(0)</a>
+                    <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
                 </li>
             </ul>
 
@@ -81,7 +78,7 @@
     <div class="form-group">
         <!--label for="GameName">Game Name:</label-->
         <label>Book Name:</label>
-        <input type="text" id="game_name_text" aria-label="game_name_text">
+        <input type="text" id="book_name_text" aria-label="book_name_text">
     </div>
     <div class="form-group">
         <!--label for="Price">Price:</label-->
@@ -118,7 +115,7 @@
             url: "update_product" ,
 
             data: {
-                game_name : $('#game_name_text').val(),
+                book_name : $('#book_name_text').val(),
                 price : $('#price_text').val(),
             },
 
