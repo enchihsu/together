@@ -16,6 +16,13 @@ public class OrderController {
   @GetMapping("/orders")
   public List<Order> getOrders() {
     return orderManager.getOrders();
+  }
 
+  @RequestMapping(value="/deleteproduct", method = RequestMethod.POST)
+  @ResponseBody
+  public String deleteproduct(
+      @RequestParam("bookname") String bookname
+  ){
+    return orderManager.deleteproduct(bookname);
   }
 }

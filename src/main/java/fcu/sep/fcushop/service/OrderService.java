@@ -32,4 +32,14 @@ public class OrderService {
     }
   }
 
+  public String deleteproduct(String bookname){
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query = "delete FROM bookstore.order where BOOK=:account";
+      connection.createQuery(query)
+          .addParameter("bookname", bookname)
+          .executeScalar(Integer.class);
+      return "Success";
+    }
+  }
+
 }
