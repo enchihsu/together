@@ -76,6 +76,7 @@
 -->
 
 <script>
+  var book=0;
   $( document ).ready( function() {
     console.log( "ready!" );
     emptyProducts();
@@ -98,6 +99,7 @@
 
     function addProducts(products) {
       for ( let product of products ) {
+        book++;
         let html = '<div class="card col-3">';
         html += '<img src="' + product.imageUrl + '" class="card-img-top" alt="' + product.name + '">';
         html += '<div class="card-body">';
@@ -105,9 +107,12 @@
         html += '<p class="card-text">' + "商品剩餘數量:"+ product.quantity + '</p>';
         html += '<p class="card-text">' + "商品描述:"+ product.description + '</p>';
         html += '<p class="card-text">' + "商品價格:$"+ product.price + '</p>';
-        html += '<a href="#" class="btn btn-primary" >' + "加入購物車" + '</a>';
+        //html += '<button class="btn btn-primary" type="button" id="'+book+'" onclick="addcart1()" >' + "加入購物車" + '</button>';
+        html += '<a href="#" id="'+book+'"  onclick ="addcart1(id)" class="btn btn-primary">' + "加入購物車" + '</a>';
+        html += '<a href="#" class="btn btn-primary" id="addlike" >' + "加入收藏" + '</a>';
         html += '</div>';
         html += '</div>';
+        console.log(book);
         $('#productList').append(html);
       }
     }
@@ -143,6 +148,41 @@
           console.log( "The request is complete!" );
         });
     }
+
+    function addcart1(id){
+       var id = $('#book').val();
+       addcart('addcart/' + book);
+       console.log( book );//4
+       console.log( id );//undefine
+    }
+    function addcart(targetUrl)
+    {
+        $.ajax({
+            // The URL for the request
+            url: targetUrl ,
+            data: {
+                bookname : $('#book').val()
+            },
+            // Whether this is a POST or GET request
+            type: "GET",
+
+            // The type of data we expect back
+            dataType : "text",
+        })
+        .done(function( text ) {
+            if(text == "Success")
+                alert("success");
+            else
+                alert("fail");
+        })
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
+    }
+
     </script>
 </body>
 </html>
