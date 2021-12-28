@@ -26,56 +26,22 @@ public class OrderService {
   public List<Order> getOrders() {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "select ID id, ACCOUNT account, BOOK book,IMAGE_URL imageUrl, PRICE price, AMOUNT amount"
-          + " from bookstore.order1";
+          + " from bookstore.order";
 
       return connection.createQuery(query).executeAndFetch(Order.class);
     }
   }
 
-  /*public String addCart(String book_name)
-  {
-    try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "insert into bookstore.order (NAME, ACCOUNT, AMOUNT) VALUES(:book_name, 0912345678, 1)";
-
-      System.out.println(query);
-      connection.createQuery(query)
-          .addParameter("book_name", book_name)
-          //.addParameter("quantity", quantity) 人
-          //.addParameter("quantity", quantity)
-          //.addParameter("img_url", img_url)
-          //.addParameter("price", price)
-          //.addParameter("description", description)
-          .executeUpdate();
-      return "Success";
-    }
-  }*/
-
   public String addcart(String book) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "insert into bookstore.order (BOOK, ACCOUNT, AMOUNT) VALUES(:bookname, 0912345678, 1)";
+      String query = ;
 
       System.out.println(query);
       connection.createQuery(query)
           .addParameter("bookname", book)
           //.addParameter("quantity", quantity) 人
-          //.addParameter("quantity", quantity)
-          //.addParameter("img_url", img_url)
-          //.addParameter("price", price)
-          //.addParameter("description", description)
           .executeUpdate();
       return "Success";
   }
 }
 }
- /* public String InsertIntoCar1(long id) {
-    try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "Insert into project.productcar(PRODUCT_NAME,INSTOCK,PRICE,QUANTITY,PICTURE) select PRODUCT_NAME,INSTOCK,PRICE,QUANTITY,PICTURE FROM project.product where PRODUCT_ID = :id";
-
-      System.out.println(query);
-      connection.createQuery(query)
-          .addParameter("id", id)
-          .executeUpdate();
-
-    }
-    return "success";
-  }*/
