@@ -32,16 +32,14 @@
 
       <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
         <li class="nav-item">
-          <a class="nav-link" href="#">登入</a>
+          <a class="nav-link" href="#">登出</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">註冊</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="membercenter.html">會員中心</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">購物車(0)</a>
+          <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
         </li>
       </ul>
 
@@ -79,13 +77,67 @@
 </aside>
 
 <section>
-  <h2 class="mt-3">更改個人資料</h2>
-
-
+  <!--h2 class="mt-3">更改個人資料</h2-->
 </section>
 
+<body>
+  <div id="modal-overlay">
+    <div class="modal-data">
+      <h3>修改密碼</h3>
+      <div class="bottom">
+          <div class="tdLabel">原密碼 <input class="inputbox" id="initpw" type="password" οnpaste="return false;" οndragenter="return false;" οncοntextmen="return false"></input></div>
+          <div class="tdLabel">新密碼 <input id="pw" class="inputbox" type="password" placeholder="" ></input></div>
+          <div class="tdLabel">請再輸入一次新密碼 <input id="repw" class="inputbox" type="password" placeholder=""></input></div>
+          <button class="bottomstyle" onclick="submit()">確定更改</button>
+          <button class="bottomstyle" onclick="overlay()">取消</button>
+      </div>
+    </div>
+  </div>
+</body>
 
+<script>
+var item = sessionStorage.getItem('user')
+var user = account ? JSON.stringify(account) : {}
 
+   function overlay() {
+          var e1 = document.getElementById('modal-overlay');
+          $(".inputbox").val("").removeClass('change').attr("placeholder", ""); //清空輸入框
+          $('#jysz,#jyxyzm,#jydyzm,.lableCountNumStyle').removeAttr("style");
+      }
+
+    /*修改密碼提交*/
+    function submit() {
+    console.log(JSON.parse(localStorage.getItem('item')));
+        var tableData = JSON.parse(sessionStorage.getItem("tabledata"));
+        console.log(tabledata);
+        if(checkpassword() && ($("#initpw").val().length > 0)) {
+            alert("密碼更改成功");
+        } else {
+            if($("#initpw").val().length <= 0) {
+                $("#initpw").val("");
+                $("#initpw").addClass('inputbox change');
+                $("#initpw").attr("placeholder", "原密碼不能為空");
+            }
+            if(!checkpassword()) {
+                $("#repw").val("");
+                $("#repw").addClass('inputbox change');
+                $("#repw").attr("placeholder", "兩次密碼輸入不一致");
+            }
+        }
+    }
+
+    /*檢查輸入是否一致*/
+    function checkpassword() {
+        var password = $("#pw").val();
+        var repassword = $("#repw").val();
+
+        if(password == repassword) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+</script>
 
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

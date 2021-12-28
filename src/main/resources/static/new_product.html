@@ -31,10 +31,7 @@
 
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">登入</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="register.html">註冊</a>
+                    <a class="nav-link" href="#">登出</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="membercenter.html">會員中心</a>
@@ -47,13 +44,41 @@
         </div>
     </div>
 </nav>
+<aside>
+    <p>
+    <h1>會員中心</h1>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='order.html'">查詢訂單</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='like.html'">查看商品收藏</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='new_product.html'">新增商品</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='update_product.html'">修改商品</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='profile.html'">更改個人資訊</button></p>
+    </p>
+    <style>
+    aside {
+    width: 15%;
+    padding-left: .5rem;
+    margin-left: .5rem;
+    float: left;
 
+    font-style: italic,微軟正黑體;
+    color: #000000;
+    }
 
+    aside > p {
+    margin: .5rem;
+    }
+
+    p {
+    font-family: 'Fira Sans', sans-serif;
+    }
+    </style>
+</aside>
+<section>
 <form id="new_product_form">
     <div class="form-group">
         <!--label for="GameName">Game Name:</label-->
         <label>Book Name:</label>
-        <input type="text" id="game_name_text" aria-label="game_name_text">
+        <input type="text" id="book_name_text" aria-label="book_name_text">
     </div>
     <div class="form-group">
         <!--label-- for="ImageURL">Image URL:</label-->
@@ -70,9 +95,14 @@
         <label>Description:</label>
         <input type="text" id="description_text">
     </div>
+    <div class="form-group">
+        <!--label for="Quantity">Description:</label-->
+        <label>Quantity:</label>
+        <input type="text" id="quantity_text">
+    </div>
     <button class="btn btn-primary btn-sm" type="button" id="add_button">Add</button>
 </form>
-
+</section>
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -100,9 +130,10 @@
             url: "add_product" ,
 
             data: {
-                game_name : $('#game_name_text').val(),
+                book_name : $('#book_name_text').val(),
                 img_url : $('#image_url_text').val(),
                 price : $('#price_text').val(),
+                quantity : $('#quantity_text').val(),
                 description : $('#description_text').val()
             },
 
