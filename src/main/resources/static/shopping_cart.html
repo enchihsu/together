@@ -51,54 +51,56 @@
                 <em>Item(s) in Cart</em>
             </div>
             <div class="cart-warp">
-    <table border="1" width="100%">
-        <div class="cart-thead">
-        <thead>
-        <tr>
-            <th> <div class="t-goods">Product Details商品資訊</div> </th>
-            <th> <div class="t-photo">Photo商品圖片</div> </th>
-            <th> <div class="t-price">Price(NT$)單價</div> </th>
-            <th> <div class="t-num">Qty數量</div> </th>
-            <th> <div class="t-sum">Subtotal總計</div> </th>
-            <th> <div class="t-action">Operate操作</div> </th>
-        </tr>
-        </thead>
-        </div>
+                <table border="1" width="100%">
+                    <div class="cart-thead">
+                        <thead>
+                        <tr>
+                            <th width="200"> <div class="t-goods">Product Details商品資訊</div> </th>
+                            <th width="100"> <div class="t-photo">Photo商品圖片</div> </th>
+                            <th width="100"> <div class="t-price">Price(NT$)單價</div> </th>
+                            <th width="100"> <div class="t-num">Qty數量</div> </th>
+                            <th width="100"> <div class="t-sum">Subtotal總計</div> </th>
+                            <th width="100"> <div class="t-action">Operate操作</div> </th>
+                        </tr>
+                        </thead>
+                    </div>
 
-        <tbody id="tb">
-        <tr>
-            <div class="cart-item-list">
-                <div class="cart-item">
-                    <td><div class="p-goods" id="orderList"></div></td>
-                    <td><div class="p-img" id="order2List"></div></td>
-                    <td><div class="p-price" id="order1List"></div></td>
-                    <td><div class="p-num" id="order3List"></div></td>
-                    <td><div class="p-sum" id="order6List"></div></td>
-                    <td><div class="p-action" id="order5List"></div></td>
-                </div>
-            </div>
-        </tr>
-        </tbody>
+                    <tbody id="orderList">
+                    <tr>
+                        <div class="cart-item-list">
+                            <div class="cart-item">
+                                <!--td><div class="p-goods" ></div></td>
+                                <td><div class="p-img" id="order2List"></div></td>
+                                <td><div class="p-price" id="order1List"></div></td>
+                                <td><div class="p-num" id="order3List"></div></td>
+                                <td><div class="p-sum" id="order6List"></div></td>
+                                <td><div class="p-action" id="order5List"></div></td-->
+                            </div>
+                        </div>
+                    </tr>
+                    </tbody>
 
-        <tfoot>
-        <tr>
-            <td colspan="6">
-            <div class="toolbar-right">
-                <div class="price-sum" id="amountList">Total Amount總金額 NT$ </div>
-            </div>
-            </td>
-        </tr>
-        </tfoot>
-    </table>
+                    <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="toolbar-right">
+                                <div class="price-sum" id="amountList">
+                                    <font color="blue" size="6" face="monospace">Total Amount總金額 NT$</font>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
-</div>
+    </div>
 </div>
 
 <div class="cart-floatbar">
     <div class="operation">
         <a href="javascript:;" class="clear-all" id="clear">Clear shopping cart</a>
-        <button class="btn btn-outline-success" type="button" id="Checkout_button">Checkout</button>
+        <button class="btn btn-outline-primary" style="float:right;" type="button" id="Checkout_button">Checkout</button>
     </div>
 </div>
 
@@ -116,65 +118,74 @@
     getOrders('orders')
   });
 
-    function emptyOrders() {
-      $('#orderList').empty();
-    }
+  function emptyOrders() {
+    $('#orderList').empty();
+  }
 
-    function addOrders(orders) {
+  var book=0;
+  var count3=[];
 
-      for ( let order of orders ) {
-        let html = '<div class="p-goods">';
+  function addOrders(orders) {
+    var i=0;
+    for ( let order of orders ) {
+        let html = '<tr>';
+        html += '<td width="200">';
+        html += '<div class="p-goods">';
         html += '<p>' + order.book + '</p>';
         html += '</div>';
-        $('#orderList').append(html);
-      }
+        html += '</td>';
+        book++;
+        console.log( book );
 
-      for ( let order of orders ) {
-        let html = '<div class="p-img">';
-        html += '<img src="' + order.imageUrl + '"  alt="' + order.name + '" class="col-2">'+'</img>';
+        html += '<td width="100">';
+        html += '<div class="p-img">';
+        html += '<img src="' + order.imageUrl + '"  alt="' + order.name + '" class="col-4">'+'</img>';
         html += '</div>';
-        $('#order2List').append(html);
-      }
+        html += '</td>';
 
-      for ( let order of orders ) {
-        let html = '<div class="p-price">';
+        html += '<td width="100">';
+        html += '<div class="p-price">';
         html += '<p>' + order.price + '</p>';
-        $('#order1List').append(html);
-      }
+        html += '</td>';
 
-      for ( let order of orders ) {
-        let html = '<div class="p-num">';
+        html += '<td width="100">';
+        html += '<div class="p-num">';
         html += '<div class="quantity-form">';
-        html += '<p>' + order.amount + '</p>';
+        //html += '<p>' + order.amount + '</p>';
+        html += '<a href="javascript:;" class="decrement">'+'<button @click=”handleSub(item)” id="'+book+'" onclick="minus1(id)">'+"-"+'</button>'+'</a>';
+              //<!-- 讓輸入框只能輸入正整數 onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"-->
+        html += '<input type="text" class="itxt" value="'+order.amount+'" >'+'</input>';
+        html += '<a href="javascript:;" class="increment">'+'<button @click=”handleSub(item)” id="'+book+'" onclick="plus1(id)">'+"+"+'</button>'+'</a>';
         html += '</div>';
         html += '</div>';
-        $('#order3List').append(html);
-      }
+        html += '</td>';
 
-      for ( let order of orders ) {
-        let html = '<div class="p-action">';
-        html += '<a href="javascript:;">'+'<button id="delete" >'+ "Delete" +'</button>'+'</a>';
-        html += '</div>';
-        $('#order5List').append(html);
-      }
-
-      var count3=[];
-      var i=0;
-
-      for ( let order of orders ) {
-        let html = '<div class="p-sum">';
+        html += '<td width="100">';
+        html += '<div class="p-sum">';
         html += '<p>' + order.price*order.amount + '</p>';
         html += '</div>';
-        $('#order6List').append(html);
+        html += '</td>';
+
+        html += '<td width="100">';
+        html += '<div class="p-action">';
+        html += '<a href="#">'+'<button id="'+book+'" onclick="delete1(id)">'+ "Delete" +'</button>'+'</a>';
+        html += '</div>';
+        html += '</td>';
+        html += '</tr>';
+        $('#orderList').append(html);
+
         count3[i]=order.price*order.amount;
         i++;
-      }
+    }
+        let html =  '<font color="blue" size="6" face="monospace">';
+        html += flushSumPrice(count3)  ;
+        html += '</font>';
+        $('#amountList').append(html);
+  }
 
-      var sum=SumData(count3);
-      console.log(SumData(count3));
-      let html =  sum  ;
-      $('#amountList').append(html);
-
+    function flushSumPrice(){
+        var sum=SumData(count3);
+        return sum;
     }
 
     function SumData(arr){
@@ -185,59 +196,115 @@
         return sum;
     }
 
-    $('#delete').click(function() {
-          deleteproduct();
-          console.log( "de" );
-     });
-
      $('#clear').click(function() {
           empty();
-        });
+     });
 
     function empty() {
-      $('#order5List').empty();
-      $('#order3List').empty();
-      $('#orderList').empty();
-      $('#order1List').empty();
-      $('#order2List').empty();
-      $('#order6List').empty();
-      $('#amountList').empty();
+      $('#orderList').remove();
+      $('#amountList').remove();
     }
 
-    function deleteproduct()
+    function minus1(id){
+       minus('minus/' + id);
+       history.go(0);
+    }
+
+    function minus(targetUrl)
     {
         $.ajax({
             // The URL for the request
-            url: "deleteproduct" ,
-
+            url: targetUrl ,
             data: {
-                bookname : $('#orderList').val()
+                id : $('#id').val()
             },
-
             // Whether this is a POST or GET request
             type: "GET",
 
             // The type of data we expect back
-          dataType : "json",
-      })
-        // Code to run if the request succeeds (is done);
-        // The response is passed to the function
-        .done(function( json ) {
-          let orders = json;
-          deleteproduct(orders);
+            dataType : "text",
         })
-        // Code to run if the request fails; the raw request and
-        // status codes are passed to the function
-        .fail(function( xhr, status, errorThrown ) {
-          console.log( "Sorry, there was a problem!" );
-          console.log( "Error: " + errorThrown );
-          console.log( "Status: " + status );
-          console.dir( xhr );
+        .done(function( text ) {
+            if(text == "Success")
+                alert("success");
+            else
+                alert("fail");
         })
-        // Code to run regardless of success or failure;
-        .always(function( xhr, status ) {
-          console.log( "The request is complete!" );
-        });
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
+    }
+
+    function plus1(id){
+       plus('plus/' + id);
+       history.go(0);
+    }
+
+    function plus(targetUrl)
+    {
+        $.ajax({
+            // The URL for the request
+            url: targetUrl ,
+            data: {
+                id : $('#id').val()
+            },
+            // Whether this is a POST or GET request
+            type: "GET",
+
+            // The type of data we expect back
+            dataType : "text",
+        })
+        .done(function( text ) {
+            if(text == "Success")
+                alert("success");
+            else
+                alert("fail");
+        })
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
+    }
+
+    function delete1(id){
+       //var a = $('#book').val();
+       deleteproduct('deleteproduct/' + id);
+       //console.log( book );//4
+       //console.log(a);//undefine
+       history.go(0);
+    }
+
+    function deleteproduct(targetUrl)
+    {
+        $.ajax({
+            // The URL for the request
+            url: targetUrl ,
+            data: {
+                bookname : $('#id').val()
+            },
+            // Whether this is a POST or GET request
+            type: "GET",
+
+            // The type of data we expect back
+            dataType : "text",
+        })
+        .done(function( text ) {
+            if(text == "Success")
+                alert("success");
+            else
+                alert("fail");
+        })
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
     }
 
     function getOrders(targetUrl) {
