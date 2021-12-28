@@ -76,6 +76,8 @@
 -->
 
 <script>
+  var book=0;
+  var like=0;
   $( document ).ready( function() {
     console.log( "ready!" );
     emptyProducts();
@@ -98,6 +100,8 @@
 
     function addProducts(products) {
       for ( let product of products ) {
+        book++;
+        like++;
         let html = '<div class="card col-3">';
         html += '<img src="' + product.imageUrl + '" class="card-img-top" alt="' + product.name + '">';
         html += '<div class="card-body">';
@@ -105,11 +109,11 @@
         html += '<p class="card-text">' + "商品剩餘數量:"+ product.quantity + '</p>';
         html += '<p class="card-text">' + "商品描述:"+ product.description + '</p>';
         html += '<p class="card-text">' + "商品價格:$"+ product.price + '</p>';
-        html += '<a href="#" class="btn btn-primary" >' + "加入購物車" + '</a>';
-        html += '<p>'  + '</p>';
-        html += '<a href="#" class="btn btn-primary" >' + "收藏商品" + '</a>';
+        html += '<a href="#" id="'+book+'"  onclick ="addcart1(id)" class="btn btn-primary">' + "加入購物車" + '</a>';
+        html += '<a href="#" id="'+like+'"  onclick ="addlike1(id)" class="btn btn-primary">' + "加入收藏" + '</a>';
         html += '</div>';
         html += '</div>';
+        console.log(book);
         $('#productList').append(html);
       }
     }
@@ -144,6 +148,67 @@
         .always(function( xhr, status ) {
           console.log( "The request is complete!" );
         });
+    }
+
+    function addcart1(id){
+       addcart('addcart/' + id);
+    }
+    function addcart(targetUrl)
+    {
+        $.ajax({
+            // The URL for the request
+            url: targetUrl ,
+            data: {
+                bookname : $('#id').val()
+            },
+            // Whether this is a POST or GET request
+            type: "GET",
+
+            // The type of data we expect back
+            dataType : "text",
+        })
+        .done(function( text ) {
+            if(text == "Success")
+                alert("success");
+            else
+                alert("fail");
+        })
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
+    }
+    function addlike1(id){
+       addlike('addlike/' + id);
+    }
+    function addlike(targetUrl)
+    {
+        $.ajax({
+            // The URL for the request
+            url: targetUrl ,
+            data: {
+                bookname : $('#id').val()
+            },
+            // Whether this is a POST or GET request
+            type: "GET",
+
+            // The type of data we expect back
+            dataType : "text",
+        })
+        .done(function( text ) {
+            if(text == "Success")
+                alert("success");
+            else
+                alert("fail");
+        })
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
     }
     </script>
 </body>

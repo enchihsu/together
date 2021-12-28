@@ -19,6 +19,11 @@ public class OrderController {
     return orderManager.getOrders();
   }
 
+  @GetMapping("/addcart/{book}")
+  public String addcart(@PathVariable("book") String book) {
+    return orderManager.addcart(book);
+  }
+
   @GetMapping("/deleteproduct/{bookname}")
   public String deleteproduct(@PathVariable("bookname") String bookname) {
     return orderManager.deleteproduct(bookname);
@@ -33,4 +38,6 @@ public class OrderController {
   public String minus(@PathVariable("id") String id) {
     return orderManager.minus(id);
   }
+
+
 }

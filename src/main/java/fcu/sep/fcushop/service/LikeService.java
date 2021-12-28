@@ -31,10 +31,3 @@ public class LikeService {
     }
   }
 }
-
-  //select product.PRICE price, product.NAME name, like1.ACCOUNT account, like1.QUANTITY quantity
-  //  FROM bookstore.product
-  //  INNER JOIN bookstore.like1
-    //ON bookstore.product.ID=bookstore.like1.ID;
-
-   // select ID id,ACCOUNT account,QUANTITY quantity from bookstore.like
