@@ -25,23 +25,47 @@ public class OrderService {
 
   public List<Order> getOrders() {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "select ID id, ACCOUNT account, BOOK book,IMAGE_URL imageUrl, PRICE price, AMOUNT amount"
-          + " from bookstore.order";
+      String query = "select product.NAME book,product.IMAGE_URL imageUrl,product.PRICE price,order.amount amount from  bookstore.product inner join bookstore.order on product.ID=order.BOOK";
 
       return connection.createQuery(query).executeAndFetch(Order.class);
     }
   }
 
-  public String addcart(String book) {
+  /*public String addcart(String book) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = ;
+      String query = "insert into bookstore.order (BOOK, ACCOUNT, AMOUNT) VALUES(:book, 0912345678, 1)";
 
       System.out.println(query);
       connection.createQuery(query)
-          .addParameter("bookname", book)
+          .addParameter("book", book)
           //.addParameter("quantity", quantity) 人
           .executeUpdate();
       return "Success";
   }
-}
+}*/
+  public String addcart(String book) {
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query1 = "select ID from bookstore.order where (order.ACCOUNT = 0912345678 and order.BOOK = :bookname)";
+      var result =  connection.createQuery(query1).addParameter("bookname", book).executeAndFetch(Order.class);
+      if(result==null){
+        String query = "insert into bookstore.order (BOOK, ACCOUNT, AMOUNT) VALUES(:bookname, 0912345678, 1)";
+
+        System.out.println(query);
+        connection.createQuery(query)
+            .addParameter("bookname", book)
+            //.addParameter("quantity", quantity) 人
+            .executeUpdate();
+      }
+      else{
+        String query ="Update bookstore.order SET AMOUNT = order.AMOUNT+1  WHERE (BOOK = :bookname and ACCOUNT=0912345678)";
+
+        System.out.println(query);
+        connection.createQuery(query)
+            .addParameter("bookname", book)
+            //.addParameter("quantity", quantity) 人
+            .executeUpdate();
+      }
+    }
+    return "Success";
+  }
 }
