@@ -54,8 +54,8 @@
 <div>
     <div class="c-container">
         <div class="w">
-            <div class="cart-filter-bar">
-                <em>訂單資訊</em>
+            <div class="cart-filter-bar" >
+                <font size="5">訂單資訊</font>
             </div>
             <div class="cart-warp">
                 <table border="1" width="100%">
@@ -91,15 +91,41 @@
 
                 </table>
                     <div class="toolbar-right">
-                        <div class="price-sum" style="float:right" id="amountList">總金額 NT$ </div>
+                        <div class="price-sum" style="float:right" id="amountList">
+                            <font size="4">總付款金額 NT$ </font>
+                        </div>
                     </div>
             </div>
         </div>
     </div>
 </div>
+<form class="cart-filter-bar" id="invoice">
+    <font size="5">電子發票</font><br>
+    <input type="radio" name="pay" value="one" checked>二聯式發票(個人)<br>
+    <input type="radio" name="pay" value="company">三聯式發票(公司行號)<br>
+    <input type="radio" name="pay" value="donate" >捐贈發票<br>
+    <input type="radio" name="pay" value="electronic">載具<br>
+</form>
+<form class="cart-filter-bar" id="delivery">
+    <font size="5">配送方式</font><br>
+    <input type="radio" name="pay" value="home"  checked>宅配到府<br>
+    <input type="radio" name="pay" value="7-11">7-11取貨<br>
+    <input type="radio" name="pay" value="family">全家取貨<br>
+</form>
+<form class="cart-filter-bar" id="payment">
+    <font size="5">付款方式</font><br>
+    <input type="radio" name="pay" value="cod" checked>貨到付款<br>
+    <input type="radio" name="pay" value="credit-card">信用卡/金融卡<br>
+    <input type="radio" name="pay" value="installment" >信用卡分期付款<br>
+    <input type="radio" name="pay" value="transfer">銀行轉帳<p><br>
+</form>
 
-
-
+<div class="cart-floatbar">
+    <div class="operation">
+        <!--a href="javascript:;" class="clear-all" id="clear">Clear shopping cart</a-->
+        <button class="btn btn-outline-success" style="float:right;" type="button" id="reallyCheckout">結帳</button>
+    </div>
+</div>
 
 
 
@@ -165,6 +191,7 @@
         html += '<p>' + order.price*order.amount + '</p>';
         html += '</div>';
         html += '</td>';
+        html += '<br>';
         $('#orderList').append(html);
 
         count3[i]=order.price*order.amount;
@@ -199,7 +226,37 @@
       $('#order6List').empty();
       $('#amountList').empty();
     }
+    function getPeople(targetUrl) {
+      // Using the core $.ajax() method
+      $.ajax({
+          // The URL for the request
+          url: targetUrl,
 
+          // Whether this is a POST or GET request
+          type: "GET",
+
+          // The type of data we expect back
+          dataType : "json",
+      })
+        // Code to run if the request succeeds (is done);
+        // The response is passed to the function
+        .done(function( json ) {
+          let orders = json;
+          addOrders(orders);
+        })
+        // Code to run if the request fails; the raw request and
+        // status codes are passed to the function
+        .fail(function( xhr, status, errorThrown ) {
+          console.log( "Sorry, there was a problem!" );
+          console.log( "Error: " + errorThrown );
+          console.log( "Status: " + status );
+          console.dir( xhr );
+        })
+        // Code to run regardless of success or failure;
+        .always(function( xhr, status ) {
+          console.log( "The request is complete!" );
+        });
+    }
     function getOrders(targetUrl) {
       // Using the core $.ajax() method
       $.ajax({
