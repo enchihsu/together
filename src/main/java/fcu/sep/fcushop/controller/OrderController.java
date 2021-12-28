@@ -24,17 +24,20 @@ public class OrderController {
     return orderManager.addcart(book);
   }
 
- /* @RequestMapping(value="/addcart", method = RequestMethod.GET)
-  @ResponseBody
-  public String addProduct(
-      @RequestParam("book_name") String book_name
-      //@RequestParam("img_url") String img_url,
-      //@RequestParam("price") Integer price,
-      //@RequestParam("quantity") Integer quantity
-      //@RequestParam("description") String description
-  )
-  {
-    return orderManager.addCart(book_name);
-  }*/
+  @GetMapping("/deleteproduct/{bookname}")
+  public String deleteproduct(@PathVariable("bookname") String bookname) {
+    return orderManager.deleteproduct(bookname);
+  }
+
+  @GetMapping("/plus/{id}")
+  public String plus(@PathVariable("id") String id) {
+    return orderManager.plus(id);
+  }
+
+  @GetMapping("/minus/{id}")
+  public String minus(@PathVariable("id") String id) {
+    return orderManager.minus(id);
+  }
+
 
 }
