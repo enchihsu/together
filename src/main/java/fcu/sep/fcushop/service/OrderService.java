@@ -25,10 +25,40 @@ public class OrderService {
 
   public List<Order> getOrders() {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "select ID id, ACCOUNT account, BOOK book,IMAGE_URL imageUrl, PRICE price, AMOUNT amount"
-          + " from bookstore.order";
+      String query = "select product.NAME book,product.IMAGE_URL imageUrl,product.PRICE price,order1.amount amount from  bookstore.product inner join bookstore.order1 on product.ID=order1.BOOK";
+
 
       return connection.createQuery(query).executeAndFetch(Order.class);
+    }
+  }
+
+  public String deleteproduct(String bookname){
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query = "delete FROM bookstore.order1 where ID=:bookname";
+      connection.createQuery(query)
+          .addParameter("bookname", bookname)
+          .executeUpdate();
+      return "Success";
+    }
+  }
+
+  public String plus(String id){
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT+1 WHERE ID=:id";
+      connection.createQuery(query)
+          .addParameter("id", id)
+          .executeUpdate();
+      return "Success";
+    }
+  }
+
+  public String minus(String id){
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT-1 WHERE ID=:id";
+      connection.createQuery(query)
+          .addParameter("id", id)
+          .executeUpdate();
+      return "Success";
     }
   }
 

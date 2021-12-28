@@ -28,7 +28,7 @@ public class ProductService {
   public List<Product> getProducts() {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "select ID id,NAME name,IMAGE_URL imageUrl,PRICE price, QUANTITY quantity,DESCRIPTION description"
-          + " from PRODUCT";
+          + " from bookstore.product";
 
       return connection.createQuery(query).executeAndFetch(Product.class);
     }
@@ -42,7 +42,7 @@ public class ProductService {
   public List<Product> getProducts(String keyword) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "select ID id, NAME name, IMAGE_URL imageUrl, PRICE price, QUANTITY quantity, DESCRIPTION description"
-          + " from PRODUCT where name like :keyword";
+          + " from bookstore.product where name like :keyword";
 
       return connection.createQuery(query)
           .addParameter("keyword", "%"+keyword+"%")
@@ -53,7 +53,7 @@ public class ProductService {
   public String AddProduct(String book_name, String img_url, int price, int quantity, String description)
   {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "insert into bookstore.PRODUCT (NAME, IMAGE_URL, PRICE, QUANTITY, DESCRIPTION) "
+      String query = "insert into bookstore.product (NAME, IMAGE_URL, PRICE, QUANTITY, DESCRIPTION) "
           + "VALUES(:book_name, :img_url, :price, :quantity, :description)";
 
       System.out.println(query);
@@ -71,7 +71,7 @@ public class ProductService {
   public String UpdateProduct(String book_name, int price)
   {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "Update PRODUCT "
+      String query = "Update bookstore.product "
           + "SET PRICE= :price WHERE NAME = :book_name";
 
       System.out.println(query);
