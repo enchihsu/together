@@ -34,7 +34,17 @@ public class OrderService {
 
   public String deleteproduct(String bookname){
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "delete FROM bookstore.order where ID=:bookname";
+      String query = "delete FROM bookstore.order1 where ID=:bookname";
+      connection.createQuery(query)
+          .addParameter("bookname", bookname)
+          .executeUpdate();
+      return "Success";
+    }
+  }
+
+  public String plus(String bookname){
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query = "delete FROM bookstore.order1 where ID=:bookname";
       connection.createQuery(query)
           .addParameter("bookname", bookname)
           .executeUpdate();
