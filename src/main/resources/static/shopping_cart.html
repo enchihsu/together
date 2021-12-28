@@ -55,8 +55,7 @@
                     <div class="cart-thead">
                         <thead>
                         <tr>
-
-                            <th width="100"> <div class="t-goods">Product Details商品資訊</div> </th>
+                            <th width="200"> <div class="t-goods">Product Details商品資訊</div> </th>
                             <th width="100"> <div class="t-photo">Photo商品圖片</div> </th>
                             <th width="100"> <div class="t-price">Price(NT$)單價</div> </th>
                             <th width="100"> <div class="t-num">Qty數量</div> </th>
@@ -85,7 +84,9 @@
                     <tr>
                         <td colspan="6">
                             <div class="toolbar-right">
-                                <div class="price-sum" id="amountList">Total Amount總金額 NT$ </div>
+                                <div class="price-sum" id="amountList">
+                                    <font color="blue" size="6" face="monospace">Total Amount總金額 NT$</font>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -99,7 +100,7 @@
 <div class="cart-floatbar">
     <div class="operation">
         <a href="javascript:;" class="clear-all" id="clear">Clear shopping cart</a>
-        <button class="btn btn-outline-success" style="float:right;" type="button" id="Checkout_button">Checkout</button>
+        <button class="btn btn-outline-primary" style="float:right;" type="button" id="Checkout_button">Checkout</button>
     </div>
 </div>
 
@@ -117,18 +118,18 @@
     getOrders('orders')
   });
 
-    function emptyOrders() {
-      $('#orderList').empty();
-    }
+  function emptyOrders() {
+    $('#orderList').empty();
+  }
 
-var book=0;
-var count3=[];
-    function addOrders(orders) {
+  var book=0;
+  var count3=[];
 
-var i=0;
-      for ( let order of orders ) {
+  function addOrders(orders) {
+    var i=0;
+    for ( let order of orders ) {
         let html = '<tr>';
-        html += '<td width="100">';
+        html += '<td width="200">';
         html += '<div class="p-goods">';
         html += '<p>' + order.book + '</p>';
         html += '</div>';
@@ -151,7 +152,7 @@ var i=0;
         html += '<div class="p-num">';
         html += '<div class="quantity-form">';
         //html += '<p>' + order.amount + '</p>';
-        html += '<a href="javascript:;" class="decrement">'+'<button @click=”handleSub(item)”>'+"-"+'</button>'+'</a>';
+        html += '<a href="javascript:;" class="decrement">'+'<button @click=”handleSub(item)” id="'+book+'" onclick="minus1(id)">'+"-"+'</button>'+'</a>';
               //<!-- 讓輸入框只能輸入正整數 onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"-->
         html += '<input type="text" class="itxt" value="'+order.amount+'" >'+'</input>';
         html += '<a href="javascript:;" class="increment">'+'<button @click=”handleSub(item)” id="'+book+'" onclick="plus1(id)">'+"+"+'</button>'+'</a>';
@@ -175,17 +176,17 @@ var i=0;
 
         count3[i]=order.price*order.amount;
         i++;
-      }
-      let html =  flushSumPrice(count3)  ;
-      $('#amountList').append(html);
-      //flushSumPrice();
     }
+        let html =  '<font color="blue" size="6" face="monospace">';
+        html += flushSumPrice(count3)  ;
+        html += '</font>';
+        $('#amountList').append(html);
+  }
 
     function flushSumPrice(){
         var sum=SumData(count3);
-          return sum;
+        return sum;
     }
-
 
     function SumData(arr){
         var sum=0;
@@ -204,11 +205,41 @@ var i=0;
       $('#amountList').remove();
     }
 
+    function minus1(id){
+       minus('minus/' + id);
+       history.go(0);
+    }
+
+    function minus(targetUrl)
+    {
+        $.ajax({
+            // The URL for the request
+            url: targetUrl ,
+            data: {
+                id : $('#id').val()
+            },
+            // Whether this is a POST or GET request
+            type: "GET",
+
+            // The type of data we expect back
+            dataType : "text",
+        })
+        .done(function( text ) {
+            if(text == "Success")
+                alert("success");
+            else
+                alert("fail");
+        })
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
+    }
+
     function plus1(id){
-       //var a = $('#book').val();
        plus('plus/' + id);
-       //console.log( book );//4
-       //console.log(a);//undefine
        history.go(0);
     }
 
@@ -218,7 +249,7 @@ var i=0;
             // The URL for the request
             url: targetUrl ,
             data: {
-                amount : $('#id').val()
+                id : $('#id').val()
             },
             // Whether this is a POST or GET request
             type: "GET",
@@ -275,8 +306,6 @@ var i=0;
             console.dir( xhr );
         })
     }
-
-
 
     function getOrders(targetUrl) {
       // Using the core $.ajax() method

@@ -42,11 +42,21 @@ public class OrderService {
     }
   }
 
-  public String plus(String bookname){
+  public String plus(String id){
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "delete FROM bookstore.order1 where ID=:bookname";
+      String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT+1 WHERE ID=:id";
       connection.createQuery(query)
-          .addParameter("bookname", bookname)
+          .addParameter("id", id)
+          .executeUpdate();
+      return "Success";
+    }
+  }
+
+  public String minus(String id){
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT-1 WHERE ID=:id";
+      connection.createQuery(query)
+          .addParameter("id", id)
           .executeUpdate();
       return "Success";
     }
