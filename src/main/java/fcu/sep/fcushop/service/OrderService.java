@@ -59,7 +59,7 @@ public class OrderService {
     return "Success";
   }
 
-  public String deleteproduct(String bookname){
+    public String deleteproduct(String bookname){
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "delete FROM bookstore.order1 where ID=:bookname";
       connection.createQuery(query)

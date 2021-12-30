@@ -158,9 +158,11 @@
         $.ajax({
             // The URL for the request
             url: targetUrl ,
+
             data: {
                 bookname : $('#id').val()
             },
+
             // Whether this is a POST or GET request
             type: "GET",
 
@@ -180,17 +182,19 @@
             console.dir( xhr );
         })
     }
+
     function addlike1(id){
        addlike('addlike/' + id);
     }
-    function addlike(targetUrl)
-    {
+    function addlike(targetUrl){
         $.ajax({
             // The URL for the request
             url: targetUrl ,
+
             data: {
                 bookname : $('#id').val()
             },
+
             // Whether this is a POST or GET request
             type: "GET",
 
@@ -201,7 +205,7 @@
             if(text == "Success")
                 alert("success");
             else
-                alert("fail");
+                alert("此商品已收藏");
         })
         .fail( function(xhr, status, errorThrown) {
             console.log( "Sorry, there was a problem!" );

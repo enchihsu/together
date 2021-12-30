@@ -20,4 +20,8 @@ public class LikeController {
     return LikeManager.getLikes();
   }
 
+  @GetMapping("/addlike/{like}")
+  public String addlike(@PathVariable("like") String like) {
+    return LikeManager.addlike(like);
+  }
 }

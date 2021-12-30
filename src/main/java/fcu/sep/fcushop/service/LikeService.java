@@ -5,6 +5,8 @@ import fcu.sep.fcushop.model.Like;
 import fcu.sep.fcushop.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.sql2o.Connection;
 
 import java.util.List;
@@ -28,6 +30,33 @@ public class LikeService {
           "    ON bookstore.product.ID=bookstore.like1.ID;";
 
       return connection.createQuery(query).executeAndFetch(Like.class);
+    }
+  }
+
+  public String addlike(String like) {
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query1 = "select count(BOOK) from bookstore.like1 where (ACCOUNT = 0912345678 and BOOK = :bookname)";
+      var result= connection.createQuery(query1).addParameter("bookname", like).executeScalar(Integer.class);
+      if(result==0){
+        String query = "insert into bookstore.like1 (BOOK, ACCOUNT) VALUES(:bookname, 0912345678)";
+
+        System.out.println(query);
+        connection.createQuery(query)
+            .addParameter("bookname", like)
+            //.addParameter("quantity", quantity) 人
+            .executeUpdate();
+        return "Success";
+      }
+      else{
+        /*String query ="Update bookstore.like1 SET AMOUNT = order1.AMOUNT+1  WHERE (BOOK = :bookname and ACCOUNT=0912345678)";
+
+        System.out.println(query);
+        connection.createQuery(query)
+            .addParameter("bookname", like)
+            //.addParameter("quantity", quantity) 人
+            .executeUpdate();*/
+        return "S";
+      }
     }
   }
 }
