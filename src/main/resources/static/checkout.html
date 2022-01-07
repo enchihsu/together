@@ -108,16 +108,17 @@
 </form>
 <form class="cart-filter-bar" id="delivery">
     <font size="5">配送方式</font><br>
-    <input type="radio" name="pay" value="home"  checked>宅配到府<br>
-    <input type="radio" name="pay" value="7-11">7-11取貨<br>
-    <input type="radio" name="pay" value="family">全家取貨<br>
+    <input type="radio" name="pay1" value="home"  checked>宅配到府<br>
+    <input class="form-control " type="text" placeholder="地址" aria-label="address" aria-describedby="address" id="address">
+    <input type="radio" name="pay1" value="7-11">7-11取貨<br>
+    <input type="radio" name="pay1" value="family">全家取貨<br>
 </form>
 <form class="cart-filter-bar" id="payment">
     <font size="5">付款方式</font><br>
-    <input type="radio" name="pay" value="cod" checked>貨到付款<br>
-    <input type="radio" name="pay" value="credit-card">信用卡/金融卡<br>
-    <input type="radio" name="pay" value="installment" >信用卡分期付款<br>
-    <input type="radio" name="pay" value="transfer">銀行轉帳<p><br>
+    <input type="radio" name="pay2" value="cod" checked>貨到付款<br>
+    <input type="radio" name="pay2" value="credit-card">信用卡/金融卡<br>
+    <input type="radio" name="pay2" value="installment" >信用卡分期付款<br>
+    <input type="radio" name="pay2" value="transfer">銀行轉帳<p><br>
 </form>
 
 <div class="cart-floatbar">
@@ -149,6 +150,31 @@
     emptyOrders();
     getOrders('orders')
   });
+
+  $('#reallyCheckout').click(function() {
+      const invoice= $("[name='pay']:checked").val();
+      const delivery= $("[name='pay1']:checked").val();
+      const address= $('#address').val();
+      const payment= $("[name='pay2']:checked").val();
+      console.log(invoice);
+      if ( delivery.trim() === 'home' && address.trim() === '') {
+        alert('沒有地址!');
+      } else {
+        $.ajax({
+            url:"/checkout",
+            type:"POST",
+            data:{"invoice":invoice,"delivery":delivery,"address":address,"payment":payment},
+            dataType:"text",
+        }).done(function(text) {
+            if (text=="Success"){
+                alert("訂單已完成");
+                location.href="index.html";
+            }else {
+                alert("error");
+            }
+        })
+      }
+    });
 
     function emptyOrders() {
       $('#orderList').empty();
@@ -217,15 +243,11 @@
           empty();
      });
 
-    function empty() {
-      $('#order5List').empty();
-      $('#order3List').empty();
-      $('#orderList').empty();
-      $('#order1List').empty();
-      $('#order2List').empty();
-      $('#order6List').empty();
-      $('#amountList').empty();
+   function empty() {
+      $('#orderList').remove();
+      $('#amountList').remove();
     }
+
     function getPeople(targetUrl) {
       // Using the core $.ajax() method
       $.ajax({
@@ -257,6 +279,7 @@
           console.log( "The request is complete!" );
         });
     }
+
     function getOrders(targetUrl) {
       // Using the core $.ajax() method
       $.ajax({
