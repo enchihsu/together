@@ -20,7 +20,7 @@ public class OrderController {
   }
 
   @GetMapping("/addcart/{book}")
-  public String addcart(@PathVariable("book") String book) {
+  public String addcart(@PathVariable("book") Integer book) {
     return orderManager.addcart(book);
   }
 

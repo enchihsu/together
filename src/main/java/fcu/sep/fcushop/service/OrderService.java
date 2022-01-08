@@ -33,16 +33,24 @@ public class OrderService {
     }
   }
 
-  public String addcart(String book) {
+  public String addcart(Integer book) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query1 = "select count(BOOK) from bookstore.order1 where (ACCOUNT = 0912345678 and BOOK = :bookname)";
-      var result= connection.createQuery(query1).addParameter("bookname", book).executeScalar(Integer.class);
+      String query3 = "select product.ID from bookstore.product";
+      var result3= connection.createQuery(query3)
+          .executeScalarList(Integer.class);
+      System.out.println("booklist:"+result3);
+      var bookid= result3.get(book-1);
+      System.out.println("bookid:"+bookid);
+
+      String query1 = "select count(BOOK) from bookstore.order1 where (ACCOUNT = 0912345678 and BOOK = :book)";
+      var result= connection.createQuery(query1).addParameter("book", bookid).executeScalar(Integer.class);
+      System.out.println("count:"+result);
       if(result==0){
         String query = "insert into bookstore.order1 (BOOK, ACCOUNT, AMOUNT) VALUES(:bookname, 0912345678, 1)";
 
         System.out.println(query);
         connection.createQuery(query)
-            .addParameter("bookname", book)
+            .addParameter("bookname", bookid)
             //.addParameter("quantity", quantity) 人
             .executeUpdate();
       }
@@ -51,7 +59,7 @@ public class OrderService {
 
         System.out.println(query);
         connection.createQuery(query)
-            .addParameter("bookname", book)
+            .addParameter("bookname", bookid)
             //.addParameter("quantity", quantity) 人
             .executeUpdate();
       }
