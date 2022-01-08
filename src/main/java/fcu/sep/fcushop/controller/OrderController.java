@@ -23,7 +23,7 @@ public class OrderController {
 
   @GetMapping("/addcart/{book}")
   public String addcart(
-      @RequestParam("book") String book,
+      @RequestParam("book") Integer book,
       @RequestParam("account") String account
   ) {
     return orderManager.addcart(book,account);
@@ -31,7 +31,7 @@ public class OrderController {
 
   @GetMapping("/deleteproduct/{book}")
   public String deleteproduct(
-      @RequestParam("book") String book,
+      @RequestParam("book") Integer book,
       @RequestParam("account") String account
   ) {
     return orderManager.deleteproduct(book,account);
@@ -39,7 +39,7 @@ public class OrderController {
 
   @GetMapping("/plus/{id}")
   public String plus(
-      @RequestParam("id") String id,
+      @RequestParam("id") Integer id,
       @RequestParam("account") String account
   ) {
     return orderManager.plus(id,account);
@@ -47,7 +47,7 @@ public class OrderController {
 
   @GetMapping("/minus/{id}")
   public String minus(
-      @RequestParam("id") String id,
+      @RequestParam("id") Integer id,
       @RequestParam("account") String account
   ) {
     return orderManager.minus(id,account);

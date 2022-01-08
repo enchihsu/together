@@ -30,7 +30,7 @@ public class LikeService {
           "    FROM bookstore.product\n" +
           "    INNER JOIN bookstore.like1\n" +
           "    ON ((bookstore.product.ID=bookstore.like1.BOOK) and like1.ACCOUNT = :account);";
-      System.out.println(query);
+      //System.out.println(query);
       return connection.createQuery(query).addParameter("account", account).executeAndFetch(Like.class);
     }
   }
@@ -64,6 +64,7 @@ public class LikeService {
       var result= connection.createQuery(query1)
           .addParameter("account", account)
           .executeScalarList(Integer.class);
+      System.out.println("result:"+result);
       var book= result.get(id-1);
       System.out.println("book:"+book);
       String query2 = "select count(BOOK) from bookstore.order1 where (ACCOUNT = :account and BOOK = :book)";
