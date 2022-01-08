@@ -7,15 +7,16 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body style="background-color:gray;">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">bookstore</a>
 
         </div>
     </div>
-</nav>
+</nav>-->
 <nav class="container">
+    <div class="flex" >
     <form id="login_form">
         <div class="form-group">
             <label>帳號:</label>
@@ -23,12 +24,27 @@
         </div>
         <div class="form-group">
             <label>密碼:</label>
-            <input type="password" id="password">
+            <input type="password" id="password"><br>
         </div>
         <button class="btn btn-outline-success" type="button" id="login_button">登入</button>
-        <button class="btn btn-outline-primary" type="button" onclick="location.href='register.html'">註冊</button>
+        <button class="btn btn-outline-primary" type="button" onclick="location.href='register.html'" >註冊</button>
     </form>
+    </div>
 </nav>
+<style>
+    .flex{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 300px;
+        width:250px;
+        height:200px;
+        background-color:#eee;
+        border-radius: 10px;
+}
+</style>
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
