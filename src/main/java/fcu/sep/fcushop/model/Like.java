@@ -13,16 +13,19 @@ public class Like {
 
   private String imageUrl;
 
+  private int book;
+
   public Like() {
   }
 
-  public Like(long id, String account, int quantity, int price, String name, String imageUrl) {
+  public Like(long id, String account, int quantity, int price, String name, String imageUrl, int book) {
     this.id = id;
     this.account = account;
     this.quantity = quantity;
     this.price = price;
     this.name = name;
     this.imageUrl = imageUrl;
+    this.book =book;
   }
 
   public long getId() {
@@ -71,5 +74,13 @@ public class Like {
 
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
+  }
+
+  public int getBook() {
+    return book;
+  }
+
+  public void setBook(int book) {
+    this.book = book;
   }
 }

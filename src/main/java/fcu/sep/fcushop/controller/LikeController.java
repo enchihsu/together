@@ -24,4 +24,9 @@ public class LikeController {
   public String addlike(@PathVariable("like") String like) {
     return LikeManager.addlike(like);
   }
+
+  @GetMapping("/addliketocart/{id}")
+  public String addliketocart(@PathVariable("id") Integer id) {
+    return LikeManager.addliketocart(id);
+  }
 }

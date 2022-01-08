@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.sql2o.Connection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ public class LikeService {
       String query = "select product.PRICE price, product.NAME name, product.IMAGE_URL imageUrl, like1.QUANTITY quantity\n" +
           "    FROM bookstore.product\n" +
           "    INNER JOIN bookstore.like1\n" +
-          "    ON bookstore.product.ID=bookstore.like1.ID;";
+          "    ON ((bookstore.product.ID=bookstore.like1.BOOK) and like1.ACCOUNT=0912345678);";
 
       return connection.createQuery(query).executeAndFetch(Like.class);
     }
@@ -48,15 +49,39 @@ public class LikeService {
         return "Success";
       }
       else{
-        /*String query ="Update bookstore.like1 SET AMOUNT = order1.AMOUNT+1  WHERE (BOOK = :bookname and ACCOUNT=0912345678)";
-
-        System.out.println(query);
-        connection.createQuery(query)
-            .addParameter("bookname", like)
-            //.addParameter("quantity", quantity) 人
-            .executeUpdate();*/
         return "S";
       }
     }
+  }
+
+  public String addliketocart(Integer id) {
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query1 = "select like1.BOOK from bookstore.like1 where (ACCOUNT = 0912345678)";
+      var result= connection.createQuery(query1)
+          .executeScalarList(Integer.class);
+      var book= result.get(id-1);
+      System.out.println("book:"+book);
+      String query2 = "select count(BOOK) from bookstore.order1 where (ACCOUNT = 0912345678 and BOOK = :book)";
+      var result2= connection.createQuery(query2)
+          .addParameter("book",book)
+          .executeScalar(Integer.class);
+      System.out.println("count:"+result2);
+
+      if(result2==0){
+        String query = "insert into bookstore.order1 (BOOK, ACCOUNT, AMOUNT) VALUES(book, 0912345678, 1)";
+        System.out.println(query);
+        connection.createQuery(query)
+            .executeUpdate();
+        System.out.println("a:"+book);
+      }
+      else{
+        String query ="Update bookstore.order1 SET AMOUNT = order1.AMOUNT+1  WHERE (BOOK = book and ACCOUNT=0912345678)";
+        System.out.println(query);
+        connection.createQuery(query)
+            .executeUpdate();
+        System.out.println("b:"+book);
+      }
+    }
+    return "Success";
   }
 }

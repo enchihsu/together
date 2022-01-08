@@ -99,26 +99,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 -->
 <script>
+  var bookid=0;
   $( document ).ready( function() {
     console.log( "ready!" );
     emptyLikes();
     getLikes('likes')
   });
 
-    function emptyLikes() {
-      $('#likeList').empty();
-    }
-
+  function emptyLikes() {
+    $('#likeList').empty();
+  }
     function addLikes(likes) {
       for ( let like of likes ) {
+        bookid++;
         let html = '<div class="card col-3">';
         html += '<div class="card-body">';
         html += '<img src="' + like.imageUrl + '" class="card-img-top" alt="' + like.name + '">';
         html += '<h5 class="card-title">' + "書名:"+ like.name + '</h5>';
         html += '<p class="card-text">' + "商品價格:"+ like.price + '</p>';
-        html += '<a href="#" class="btn btn-primary" >' + "加入購物車" + '</a>';
+        html += '<a href="#" id="'+bookid+'" onclick ="addliketocart1(id)" class="btn btn-primary" >' + "加入購物車" + '</a>';
         html += '</div>';
         html += '</div>';
+        console.log(bookid);
         $('#likeList').append(html);
       }
     }
@@ -154,6 +156,40 @@
           console.log( "The request is complete!" );
         });
     }
+
+  function addliketocart1(id){
+       addliketocart('addliketocart/' + id);
+    }
+    function addliketocart(targetUrl)
+    {
+        $.ajax({
+            // The URL for the request
+            url: targetUrl ,
+
+            data: {
+                id : $('#id').val()
+            },
+
+            // Whether this is a POST or GET request
+            type: "GET",
+
+            // The type of data we expect back
+            dataType : "text",
+        })
+        .done(function( text ) {
+            if(text == "Success")
+                alert("success");
+            else
+                alert("fail");
+        })
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
+    }
+
     </script>
 </body>
 </html>
