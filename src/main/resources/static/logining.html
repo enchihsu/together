@@ -129,7 +129,7 @@
         html += '<p class="card-text">' + "商品價格:$"+ product.price + '</p>';
         html += '<a id="'+book+'"  onclick ="addcart1(id)" class="btn btn-primary">' + "加入購物車" + '</a>';
         html += '<p>'+'</p>';
-        html += '<a href="#" id="'+like+'"  onclick ="addlike1(id)" class="btn btn-primary">' + "加入收藏" + '</a>';
+        html += '<a id="'+like+'"  onclick ="addlike1(id)" class="btn btn-primary">' + "加入收藏" + '</a>';
         html += '</div>';
         html += '</div>';
         console.log(book);
@@ -202,15 +202,16 @@
         })
     }
     function addlike1(id){
-       addlike('addlike/' + id);
+       addlike('addlike/' + id,id);
     }
-    function addlike(targetUrl)
+    function addlike(targetUrl,id)
     {
         $.ajax({
             // The URL for the request
             url: targetUrl ,
             data: {
-                bookname : $('#id').val(),
+                like : id,
+                account : test
             },
             // Whether this is a POST or GET request
             type: "GET",
@@ -222,7 +223,7 @@
             if(text == "Success")
                 alert("success");
             else
-                alert("fail");
+                alert("此商品已收藏");
         })
         .fail( function(xhr, status, errorThrown) {
             console.log( "Sorry, there was a problem!" );
