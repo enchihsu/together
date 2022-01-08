@@ -85,6 +85,7 @@
   <div class="modal-data">
     <h3>修改密碼</h3>
     <div class="bottom">
+      <div class="tdLabel">Account <input id="account" class="inputbox" placeholder=""></input></div>
       <div class="tdLabel">原密碼 <input class="inputbox" id="initpw" type="password" οnpaste="return false;" οndragenter="return false;" οncοntextmen="return false"></input></div>
       <div class="tdLabel">新密碼 <input id="pw" class="inputbox" type="password" placeholder="" ></input></div>
       <div class="tdLabel">請再輸入一次新密碼 <input id="repw" class="inputbox" type="password" placeholder=""></input></div>
@@ -105,7 +106,8 @@
     /*修改密碼提交*/
     function submit() {
         if(checkpassword() && ($("#initpw").val().length > 0)) {
-            alert("密碼更改成功");
+            update_pass();
+            //alert("密碼更改成功");
         } else {
             if($("#initpw").val().length <= 0) {
                 $("#initpw").val("");
@@ -119,6 +121,42 @@
             }
         }
     }
+
+
+    function update_pass()
+    {
+        $.ajax({
+            // The URL for the request
+            url: "profile" ,
+
+            data: {
+                account : $('#account').val(),
+                password : $('#pw').val(),
+                orginpass : $('#initpw').val(),
+            },
+
+            // Whether this is a POST or GET request
+            type: "GET",
+
+            // The type of data we expect back
+            dataType : "text",
+        })
+        .done(function( text ) {
+            if(text == "OK")
+                alert("pass");
+            else if(text == "NO")
+                alert("orginpassword different")
+            else
+                alert("fail");
+        })
+        .fail( function(xhr, status, errorThrown) {
+            console.log( "Sorry, there was a problem!" );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
+        })
+    }
+
 
     /*檢查輸入是否一致*/
     function checkpassword() {
