@@ -11,6 +11,15 @@ public class PeopleController {
   @Autowired
   PeopleService peopleManager;
 
+  @RequestMapping(value="/login", method = RequestMethod.POST)
+  @ResponseBody
+  public String login(
+      @RequestParam("account") String account,
+      @RequestParam("password") String password
+  ){
+    return peopleManager.login(account,password);
+  }
+
   @RequestMapping(value="/register_product", method = RequestMethod.GET)
   @ResponseBody
   public String registerProduct(
@@ -31,7 +40,7 @@ public class PeopleController {
   public String updatePeople(
       @RequestParam("account") String account,
       @RequestParam("password") String password,
-	  @RequestParam("orginpass") String orginpass
+      @RequestParam("orginpass") String orginpass
   )
   {
     return peopleManager.UpdatePeople(account, password, orginpass);
@@ -43,3 +52,4 @@ public class PeopleController {
 
 
 }
+

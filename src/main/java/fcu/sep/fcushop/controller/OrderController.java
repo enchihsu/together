@@ -15,22 +15,43 @@ public class OrderController {
   OrderService orderManager;
 
   @GetMapping("/orders")
-  public List<Order> getOrders() {
-    return orderManager.getOrders();
+  public List<Order> getOrders(
+      @RequestParam("account") String account
+  ) {
+    return orderManager.getOrders(account);
   }
 
-  @GetMapping("/deleteproduct/{bookname}")
-  public String deleteproduct(@PathVariable("bookname") String bookname) {
-    return orderManager.deleteproduct(bookname);
+  @GetMapping("/addcart/{book}")
+  public String addcart(
+      @RequestParam("book") Integer book,
+      @RequestParam("account") String account
+  ) {
+    return orderManager.addcart(book,account);
+  }
+
+  @GetMapping("/deleteproduct/{book}")
+  public String deleteproduct(
+      @RequestParam("book") Integer book,
+      @RequestParam("account") String account
+  ) {
+    return orderManager.deleteproduct(book,account);
   }
 
   @GetMapping("/plus/{id}")
-  public String plus(@PathVariable("id") String id) {
-    return orderManager.plus(id);
+  public String plus(
+      @RequestParam("id") Integer id,
+      @RequestParam("account") String account
+  ) {
+    return orderManager.plus(id,account);
   }
 
   @GetMapping("/minus/{id}")
-  public String minus(@PathVariable("id") String id) {
-    return orderManager.minus(id);
+  public String minus(
+      @RequestParam("id") Integer id,
+      @RequestParam("account") String account
+  ) {
+    return orderManager.minus(id,account);
   }
+
+
 }

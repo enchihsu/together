@@ -1,4 +1,3 @@
-
 package fcu.sep.fcushop.model;
 
 /**

@@ -32,6 +32,12 @@
 
       <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
         <li class="nav-item">
+          <span class="nav-link disabled">hi!</span>
+        </li>
+        <li class="nav-item">
+          <span id="show" class="nav-link disabled"></span>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#">登出</a>
         </li>
 
@@ -49,11 +55,11 @@
 <aside>
   <p>
   <h1>會員中心</h1>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='order.html'">查詢訂單</button></p>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='like.html'">查看商品收藏</button></p>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='new_product.html'">新增商品</button></p>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='update_product.html'">修改商品</button></p>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='profile.html'">更改個人資訊</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='order.html?value='+oneValues()">查詢訂單</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='like.html?value='+oneValues()">查看商品收藏</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='new_product.html?value='+oneValues()">新增商品</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='update_product.html?value='+oneValues()">修改商品</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='profile.html?value='+oneValues()">更改個人資訊</button></p>
   </p>
   <style>
     aside {
@@ -85,7 +91,6 @@
   <div class="modal-data">
     <h3>修改密碼</h3>
     <div class="bottom">
-      <div class="tdLabel">Account <input id="account" class="inputbox" placeholder=""></input></div>
       <div class="tdLabel">原密碼 <input class="inputbox" id="initpw" type="password" οnpaste="return false;" οndragenter="return false;" οncοntextmen="return false"></input></div>
       <div class="tdLabel">新密碼 <input id="pw" class="inputbox" type="password" placeholder="" ></input></div>
       <div class="tdLabel">請再輸入一次新密碼 <input id="repw" class="inputbox" type="password" placeholder=""></input></div>
@@ -95,8 +100,38 @@
   </div>
 </div>
 </body>
+<!-- Optional JavaScript; choose one of the two! -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+-->
 <script>
+$( document ).ready( function() {
+    console.log( "ready!" );
+  });
+$(function(){
+    //console.log(location.search.concat());
+    //manyValues();
+    $("#show").html(oneValues());
+    })
+    //接收一個值
+    function oneValues(){
+    var result;
+    var url=window.location.search; //獲取url中"?"符後的字串
+    if(url.indexOf("?")!=-1){
+        result = url.substr(url.indexOf("=")+1);
+       }
+    return result;
+    }
+     var test = oneValues();
    function overlay() {
           var e1 = document.getElementById('modal-overlay');
           $(".inputbox").val("").removeClass('change').attr("placeholder", ""); //清空輸入框
@@ -123,14 +158,16 @@
     }
 
 
+
     function update_pass()
     {
+     console.log(test);
         $.ajax({
             // The URL for the request
             url: "profile" ,
 
             data: {
-                account : $('#account').val(),
+                account : test,
                 password : $('#pw').val(),
                 orginpass : $('#initpw').val(),
             },
@@ -141,6 +178,7 @@
             // The type of data we expect back
             dataType : "text",
         })
+
         .done(function( text ) {
             if(text == "OK")
                 alert("pass");
@@ -169,21 +207,12 @@
             return false;
         }
     };
+
+
 </script>
 
-<!-- Optional JavaScript; choose one of the two! -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<!--
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
--->
 
 </body>
 </html>
+
+

@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">首頁</a>
+                    <a class="nav-link active" aria-current="page" onclick="window.location.href='logining.html?value='+oneValues()">首頁</a>
                 </li>
 
 
@@ -31,13 +31,19 @@
 
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">登出</a>
+                    <span class="nav-link disabled">hi!</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="membercenter.html">會員中心</a>
+                    <span id="show" class="nav-link disabled"></span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
+                    <a class="nav-link" href="index.html">登出</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='membercenter.html?value='+oneValues()">會員中心</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='shopping_cart.html?value='+oneValues()">購物車(0)</a>
                 </li>
             </ul>
 
@@ -47,11 +53,11 @@
 <aside>
     <p>
     <h1>會員中心</h1>
-    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='order.html'">查詢訂單</button></p>
-    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='like.html'">查看商品收藏</button></p>
-    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='new_product.html'">新增商品</button></p>
-    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='update_product.html'">修改商品</button></p>
-    <p><button class="btn btn-outline-dark" type="button" onclick="location.href='profile.html'">更改個人資訊</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='order.html?value='+oneValues()">查詢訂單</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='like.html?value='+oneValues()">查看商品收藏</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='new_product.html?value='+oneValues()">新增商品</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='update_product.html?value='+oneValues()">修改商品</button></p>
+    <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='profile.html?value='+oneValues()">更改個人資訊</button></p>
     </p>
     <style>
     aside {
@@ -75,34 +81,34 @@
 </aside>
 <section>
     <h2 class="mt-3">新增商品</h2>
-<form id="new_product_form">
-    <div class="form-group">
-        <!--label for="GameName">Game Name:</label-->
-        <label>Book Name:</label>
-        <input type="text" id="book_name_text" aria-label="book_name_text">
-    </div>
-    <div class="form-group">
-        <!--label-- for="ImageURL">Image URL:</label-->
-        <label>Image URL:</label>
-        <input type="text" id="image_url_text">
-    </div>
-    <div class="form-group">
-        <!--label for="Price">Price:</label-->
-        <label>Price:</label>
-        <input type="text" id="price_text">
-    </div>
-    <div class="form-group">
-        <!--label for="Description">Description:</label-->
-        <label>Description:</label>
-        <input type="text" id="description_text">
-    </div>
-    <div class="form-group">
-        <!--label for="Quantity">Description:</label-->
-        <label>Quantity:</label>
-        <input type="text" id="quantity_text">
-    </div>
-    <button class="btn btn-primary btn-sm" type="button" id="add_button">Add</button>
-</form>
+    <form id="new_product_form">
+        <div class="form-group">
+            <!--label for="GameName">Game Name:</label-->
+            <label>Book Name:</label>
+            <input type="text" id="book_name_text" aria-label="book_name_text">
+        </div>
+        <div class="form-group">
+            <!--label-- for="ImageURL">Image URL:</label-->
+            <label>Image URL:</label>
+            <input type="text" id="image_url_text">
+        </div>
+        <div class="form-group">
+            <!--label for="Price">Price:</label-->
+            <label>Price:</label>
+            <input type="text" id="price_text">
+        </div>
+        <div class="form-group">
+            <!--label for="Description">Description:</label-->
+            <label>Description:</label>
+            <input type="text" id="description_text">
+        </div>
+        <div class="form-group">
+            <!--label for="Quantity">Description:</label-->
+            <label>Quantity:</label>
+            <input type="text" id="quantity_text">
+        </div>
+        <button class="btn btn-primary btn-sm" type="button" id="add_button">Add</button>
+    </form>
 </section>
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -123,6 +129,21 @@
         //$('#game_name_text').val(++i);
         add_product();
     });
+
+   $(function(){
+    //console.log(location.search.concat());
+    //manyValues();
+    $("#show").html(oneValues());
+    })
+    //接收一個值
+    function oneValues(){
+    var result;
+    var url=window.location.search; //獲取url中"?"符後的字串
+    if(url.indexOf("?")!=-1){
+        result = url.substr(url.indexOf("=")+1);
+       }
+    return result;
+    }
 
     function add_product()
     {
