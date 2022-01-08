@@ -1,15 +1,15 @@
 package fcu.sep.fcushop.service;
 
-import com.sun.tools.jconsole.JConsolePlugin;
 import fcu.sep.fcushop.database.Sql2oDbHandler;
 import fcu.sep.fcushop.model.Checkout;
-import fcu.sep.fcushop.model.Like;
-import fcu.sep.fcushop.model.Product;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.sql2o.Connection;
-
+import org.w3c.dom.html.HTMLBRElement;
 import java.util.List;
+
 @Service
 public class CheckoutService {
   @Autowired
@@ -18,22 +18,28 @@ public class CheckoutService {
   public CheckoutService() {
 
   }
-  //insert into bookstore.checkout(ACCOUNT, BOOKID, AMOUNT) select ACCOUNT,BOOK,AMOUNT FROM bookstore.order1 where account = 4;
-  //
+
   public List<Checkout> getCheckouts() {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "select PAYMENT payment, DELIVERY delivery,INVOICE invoice, CID cid, ADDRESS address"
-          + " from bookstore.checkout";
+      String query = "select product.NAME book,product.IMAGE_URL imageUrl,product.PRICE price,checkout.AMOUNT amount,checkout.CID cid,checkout.DELIVERY delivery,checkout.ADDRESS address,checkout.INVOICE invoice,checkout.PAYMENT payment"
+          + " from  bookstore.product inner join bookstore.checkout on (product.ID=checkout.BOOK) and checkout.ACCOUNT = 6 ";
 
       return connection.createQuery(query).executeAndFetch(Checkout.class);
     }
   }
+  //public List<Checkout> getCheckouts() {
+    //try (Connection connection = sql2oDbHandler.getConnector().open()) {
+    //  String query = "select distinct checkout.CID cid"
+     //     + " from  bookstore.checkout where checkout.ACCOUNT = 6 ";
 
+      //return connection.createQuery(query).executeAndFetch(Checkout.class);
+    //}
+  //}
     public String checkout(String invoice,String delivery,String address,String payment){
       try (Connection connection = sql2oDbHandler.getConnector().open()) {
-        String query3 = "insert into bookstore.checkout(ACCOUNT,BOOK,AMOUNT) select ACCOUNT account,BOOK book,AMOUNT amount from bookstore.order1 where bookstore.order1.ACCOUNT = 2";
+        String query3 = "insert into bookstore.checkout(ACCOUNT,BOOK,AMOUNT) select ACCOUNT account,BOOK book,AMOUNT amount from bookstore.order1 where bookstore.order1.ACCOUNT = 6";
         connection.createQuery(query3).executeUpdate();
-        String query1 ="update bookstore.checkout set PAYMENT =:payment,DELIVERY =:delivery,INVOICE =:invoice,ADDRESS =:address where  bookstore.checkout.ACCOUNT= 2 and bookstore.checkout.CID IS NULL";
+        String query1 ="update bookstore.checkout set PAYMENT =:payment,DELIVERY =:delivery,INVOICE =:invoice,ADDRESS =:address where  bookstore.checkout.ACCOUNT= 6 and bookstore.checkout.CID IS NULL";
         //String query1 ="insert into bookstore.checkout (PAYMENT, DELIVERY, INVOICE, ADDRESS) VALUES(:payment, :delivery, :invoice, :address)";
         System.out.println(query1);
         connection.createQuery(query1)
@@ -42,10 +48,10 @@ public class CheckoutService {
             .addParameter("invoice", invoice)
             .addParameter("address", address)
             .executeUpdate();
-        String query2="update bookstore.checkout set cid = (select * from (select max(CID) cid FROM bookstore.checkout) as a)+1 where bookstore.checkout.ACCOUNT = 2 and bookstore.checkout.CID IS NULL";
+        String query2="update bookstore.checkout set cid = (select * from (select max(CID) cid FROM bookstore.checkout) as a)+1 where bookstore.checkout.ACCOUNT = 6 and bookstore.checkout.CID IS NULL";
         connection.createQuery(query2)
             .executeUpdate();
-        String query4 ="delete from bookstore.order1 where bookstore.order1.ACCOUNT = 2";
+        String query4 ="delete from bookstore.order1 where bookstore.order1.ACCOUNT = 6";
         connection.createQuery(query4)
             .executeUpdate();
         //String query ="select max(CID) cid"

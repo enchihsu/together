@@ -1,5 +1,6 @@
 package fcu.sep.fcushop.controller;
 import fcu.sep.fcushop.model.Checkout;
+import fcu.sep.fcushop.model.Product;
 import fcu.sep.fcushop.service.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,13 @@ public class CheckoutController {
   @Autowired
   CheckoutService checkoutManager;
 
-  @RequestMapping(value="/checkout", method = RequestMethod.POST)
+  @GetMapping("/checkouts")
+  public List<Checkout> getCheckouts() {
+    return checkoutManager.getCheckouts();
+  }
+
+
+  @RequestMapping(value="/reallycheckout", method = RequestMethod.POST)
   @ResponseBody
   public String checkout(
       @RequestParam("invoice") String invoice,

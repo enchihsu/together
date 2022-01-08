@@ -23,20 +23,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">首頁</a>
+                    <a class="nav-link active" aria-current="page" onclick="window.location.href='logining.html?value='+oneValues()">首頁</a>
                 </li>
-
             </ul>
 
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">登出</a>
+                    <span class="nav-link disabled">hi!</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="membercenter.html">會員中心</a>
+                    <span id="show" class="nav-link disabled"></span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
+                    <a class="nav-link" href="index.html">登出</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='membercenter.html?value='+oneValues()">會員中心</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='shopping_cart.html?value='+oneValues()">購物車(0)</a>
                 </li>
             </ul>
 
@@ -100,7 +105,7 @@
 <div class="cart-floatbar">
     <div class="operation">
         <a href="javascript:;" class="clear-all" id="clear">Clear shopping cart</a>
-        <button class="btn btn-outline-primary" style="float:right;" type="button" onclick="location.href='checkout.html'"id="Checkout_button">Checkout</button>
+        <button class="btn btn-outline-primary" style="float:right;" type="button" id="Checkout_button">Checkout</button>
     </div>
 </div>
 
@@ -117,6 +122,22 @@
     emptyOrders();
     getOrders('orders')
   });
+
+  $(function(){
+    //console.log(location.search.concat());
+    //manyValues();
+    $("#show").html(oneValues());
+    })
+    //接收一個值
+    function oneValues(){
+    var result;
+    var url=window.location.search; //獲取url中"?"符後的字串
+    if(url.indexOf("?")!=-1){
+        result = url.substr(url.indexOf("=")+1);
+       }
+    return result;
+    }
+    var test = oneValues();
 
   function emptyOrders() {
     $('#orderList').empty();
@@ -206,17 +227,18 @@
     }
 
     function minus1(id){
-       minus('minus/' + id);
+       minus('minus/' + id,id);
        history.go(0);
     }
 
-    function minus(targetUrl)
+    function minus(targetUrl,id)
     {
         $.ajax({
             // The URL for the request
             url: targetUrl ,
             data: {
-                id : $('#id').val()
+                id : id,
+                account : test
             },
             // Whether this is a POST or GET request
             type: "GET",
@@ -239,17 +261,18 @@
     }
 
     function plus1(id){
-       plus('plus/' + id);
+       plus('plus/' + id,id);
        history.go(0);
     }
 
-    function plus(targetUrl)
+    function plus(targetUrl,id)
     {
         $.ajax({
             // The URL for the request
             url: targetUrl ,
             data: {
-                id : $('#id').val()
+                id : id,
+                account : test
             },
             // Whether this is a POST or GET request
             type: "GET",
@@ -273,19 +296,21 @@
 
     function delete1(id){
        //var a = $('#book').val();
-       deleteproduct('deleteproduct/' + id);
+       deleteproduct('deleteproduct/' + id,id);
        //console.log( book );//4
        //console.log(a);//undefine
        history.go(0);
     }
 
-    function deleteproduct(targetUrl)
+    function deleteproduct(targetUrl,id)
     {
         $.ajax({
             // The URL for the request
             url: targetUrl ,
             data: {
-                bookname : $('#id').val()
+                //book : $('#id').val(),
+                book : id,
+                account : test
             },
             // Whether this is a POST or GET request
             type: "GET",
@@ -312,7 +337,9 @@
       $.ajax({
           // The URL for the request
           url: targetUrl,
-
+          data: {
+                account : test
+            },
           // Whether this is a POST or GET request
           type: "GET",
 

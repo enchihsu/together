@@ -10,9 +10,11 @@ public class Checkout {
   private String account;
   private String book;
   private String amount;
+  private String imageUrl;
+  private int price;
   public Checkout() {
   }
-  public Checkout(Long id,String invoice,String delivery,String address,String payment,Integer cid,String account,String book,String amount) {
+  public Checkout(Long id,String invoice,String delivery,String address,String payment,Integer cid,String account,String book,String amount,String imageUrl,Integer price) {
     this.id =id;
     this.invoice = invoice;
     this.delivery = delivery;
@@ -22,6 +24,8 @@ public class Checkout {
     this.account = account;
     this.book = book;
     this.amount = amount;
+    this.imageUrl = imageUrl;
+    this.price = price;
   }
   public Long getId(){ return id;}
 
@@ -73,5 +77,21 @@ public class Checkout {
 
   public void setAmount(String amount) {
     this.amount = amount;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public int getPrice() {
+    return price;
+  }
+
+  public void setPrice(int price) {
+    this.price = price;
   }
 }

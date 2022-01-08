@@ -27,7 +27,7 @@ public class PeopleService {
   public String login(String account, String password){
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "select count(*)"
-          + " from PEOPLE where account =:account and password =:password";
+          + " from bookstore.people where account =:account and password =:password";
       int c;
       c=connection.createQuery(query)
           .addParameter("account", account)
@@ -44,7 +44,7 @@ public class PeopleService {
   public String Register(String account, String password, String name, String address, String birthday, String sex, String mail)
   {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "insert into people (ACCOUNT, PASSWORD, NAME, ADDRESS, BIRTHDAY, SEX, MAIL) "
+      String query = "insert into bookstore.people (ACCOUNT, PASSWORD, NAME, ADDRESS, BIRTHDAY, SEX, MAIL) "
           + "VALUES(:account, :password, :name, :address, :birthday, :sex, :mail)";
 
       System.out.println(query);

@@ -161,7 +161,7 @@
         alert('沒有地址!');
       } else {
         $.ajax({
-            url:"/checkout",
+            url:"/reallycheckout",
             type:"POST",
             data:{"invoice":invoice,"delivery":delivery,"address":address,"payment":payment},
             dataType:"text",
