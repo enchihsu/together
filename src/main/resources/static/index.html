@@ -31,14 +31,14 @@
 
       <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
         <li class="nav-item">
-          <a class="nav-link" href="login.html">登出</a>
+          <a class="nav-link" href="login.html">登入</a>
         </li>
-        <li class="nav-item">
+        <!--li class="nav-item">
           <a class="nav-link" href="membercenter.html">會員中心</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
-        </li>
+        </li-->
       </ul>
 
       <form class="d-flex">
@@ -110,6 +110,7 @@
         html += '<p class="card-text">' + "商品描述:"+ product.description + '</p>';
         html += '<p class="card-text">' + "商品價格:$"+ product.price + '</p>';
         html += '<a href="#" id="'+book+'"  onclick ="addcart1(id)" class="btn btn-primary">' + "加入購物車" + '</a>';
+        html += '<p>'+'</p>';
         html += '<a href="#" id="'+like+'"  onclick ="addlike1(id)" class="btn btn-primary">' + "加入收藏" + '</a>';
         html += '</div>';
         html += '</div>';

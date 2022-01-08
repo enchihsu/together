@@ -79,11 +79,11 @@
         </tr>
         <tr>
             <td>性別：</td>
-            <td><select id="sex" style="width:200px;">
-                <option value="男">男 Male</option>
-                <option value="女">女 Female</option>
-                <option value="暫不提供">暫不提供 None</option>
-            </select></td>
+            <td>
+                <input type="radio" name="sex" value="男">男 Male&nbsp</input>
+                <input type="radio" name="sex" value="女">女 Female&nbsp</input>
+                <input type="radio" name="sex" value="暫不提供">暫不提供 None&nbsp</input>
+            </td>
         </tr>
         <tr>
             <td><label for="password1">電子郵件：</label></td>
@@ -146,7 +146,7 @@
                 name : $('#name').val(),
                 address : $('#address').val(),
                 birthday : $('#birthday').val(),
-                sex : $('#sex').val(),
+                sex : $("[name='sex']:checked").val(),
                 mail : $('#mail').val()
             },
 
@@ -157,8 +157,12 @@
             dataType : "text",
         })
         .done(function( text ) {
-            if(text == "Success")
-                alert("success");
+            if(text == "Success"){
+                alert("register success");
+                var account1 = $('#account').val();
+                window.location.href="logining.html?valus="+account1;
+                //location.href="index.html";
+            }
             else
                 alert("fail");
         })

@@ -28,6 +28,9 @@
         <button class="btn btn-outline-success" type="button" id="login_button">登入</button>
         <button class="btn btn-outline-primary" type="button" onclick="location.href='register.html'">註冊</button>
     </form>
+    <div>
+        <p><input type ="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='index.html'" value="回到首頁"></p>
+    </div>
 </nav>
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -52,7 +55,10 @@
             dataType:"text",
         }).done(function(text) {
             if (text=="OK"){
-                location.href="index.html";
+                var account1 = $('#account').val();
+                window.location.href="logining.html?valus="+account1;
+                 //console.log( valus );
+                //location.href="logining.html";
             }else {
                 alert("使用者名稱或密碼輸入錯誤");
             }
