@@ -14,83 +14,51 @@ import org.w3c.dom.html.HTMLBRElement;
 @Service
 public class PeopleService {
 
-	@Autowired
-	private Sql2oDbHandler sql2oDbHandler;
+  @Autowired
+  private Sql2oDbHandler sql2oDbHandler;
 
-	public PeopleService() {
+  public PeopleService() {
 
-	}
-	/**
-	 * 点对 (x,y) 的水平和垂直距离.
-	 */
-	public String login(String account, String password){
-		try (Connection connection = sql2oDbHandler.getConnector().open()) {
-			String query = "select count(*)"
-					+ " from bookstore.people where account =:account and password =:password";
-			int c;
-			c=connection.createQuery(query)
-					.addParameter("account", account)
-					.addParameter("password", password)
-					.executeScalar(Integer.class);
-			if(c==1) {
-				return "OK";
-			} else {
-				return "NO";
-			}
-		}
-	}
+  }
+  /**
+   * 点对 (x,y) 的水平和垂直距离.
+   */
 
-	public String Register(String account, String password, String name, String address, String birthday, String sex, String mail)
-	{
-		try (Connection connection = sql2oDbHandler.getConnector().open()) {
-			String query = "insert into people (ACCOUNT, PASSWORD, NAME, ADDRESS, BIRTHDAY, SEX, MAIL) "
-					+ "VALUES(:account, :password, :name, :address, :birthday, :sex, :mail)";
+  public String login(String account, String password){
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query = "select count(*)"
+          + " from bookstore.people where account =:account and password =:password";
+      int c;
+      c=connection.createQuery(query)
+          .addParameter("account", account)
+          .addParameter("password", password)
+          .executeScalar(Integer.class);
+      if(c==1) {
+        return "OK";
+      } else {
+        return "NO";
+      }
+    }
+  }
 
-			System.out.println(query);
-			connection.createQuery(query)
-					.addParameter("account", account)
-					.addParameter("password", password)
-					.addParameter("name", name)
-					.addParameter("address", address)
-					.addParameter("birthday", birthday)
-					.addParameter("sex", sex)
-					.addParameter("mail", mail)
-					.executeUpdate();
-			return "Success";
-		}
-	}
+  public String Register(String account, String password, String name, String address, String birthday, String sex, String mail)
+  {
+    try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query = "insert into bookstore.people (ACCOUNT, PASSWORD, NAME, ADDRESS, BIRTHDAY, SEX, MAIL) "
+          + "VALUES(:account, :password, :name, :address, :birthday, :sex, :mail)";
 
-	public String UpdatePeople(String account, String password, String orginpass)
-	{
-		try (Connection connection = sql2oDbHandler.getConnector().open()) {
-			String query = "select PASSWORD" + " from bookstore.people where ACCOUNT =:account";
-			var c=connection.createQuery(query)
-					.addParameter("account", account)
-					.executeScalar(String.class);
-			int result = c.compareTo(orginpass);
-			System.out.println(result);
+      System.out.println(query);
+      connection.createQuery(query)
+          .addParameter("account", account)
+          .addParameter("password", password)
+          .addParameter("name", name)
+          .addParameter("address", address)
+          .addParameter("birthday", birthday)
+          .addParameter("sex", sex)
+          .addParameter("mail", mail)
+          .executeUpdate();
+      return "Success";
+    }
+  }
 
-			if(result==0) {
-				String query_1 = "Update bookstore.people " + "SET PASSWORD=:password WHERE ACCOUNT = :account";
-				System.out.println(query_1);
-				connection.createQuery(query_1)
-						.addParameter("account", account)
-						.addParameter("password", password)
-						.executeUpdate();
-				return "OK";
-			}
-			else {
-				return "NO";
-			}
-		}
-	}
 }
-
-
-
-
-
-
-
-
-
