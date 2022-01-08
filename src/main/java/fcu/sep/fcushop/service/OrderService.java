@@ -29,7 +29,7 @@ public class OrderService {
   public List<Order> getOrders(String account) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "select product.NAME book,product.IMAGE_URL imageUrl,product.PRICE price,order1.amount amount " +
-          "from bookstore.product inner join bookstore.order1 on product.ID=order1.BOOK where ACCOUNT = :account";
+          "from bookstore.product inner join bookstore.order1 on product.ID=order1.BOOK where order1.ACCOUNT = :account";
       System.out.println(query);
       return connection.createQuery(query).addParameter("account", account).executeAndFetch(Order.class);
     }
