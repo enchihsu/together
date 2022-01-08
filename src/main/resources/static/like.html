@@ -32,13 +32,19 @@
 
       <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
         <li class="nav-item">
-          <a class="nav-link" href="#">登出</a>
+          <span class="nav-link disabled">hi!</span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="membercenter.html">會員中心</a>
+          <span id="show" class="nav-link disabled"></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
+          <a class="nav-link" href="index.html">登出</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="window.location.href='membercenter.html?value='+oneValues()">會員中心</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="window.location.href='shopping_cart.html?value='+oneValues()">購物車(0)</a>
         </li>
       </ul>
 
@@ -49,11 +55,11 @@
 <aside>
   <p>
   <h1>會員中心</h1>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='order.html'">查詢訂單</button></p>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='like.html'">查看商品收藏</button></p>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='new_product.html'">新增商品</button></p>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='update_product.html'">修改商品</button></p>
-  <p><button class="btn btn-outline-dark" type="button" onclick="location.href='profile.html'">更改個人資訊</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='order.html?value='+oneValues()">查詢訂單</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='like.html?value='+oneValues()">查看商品收藏</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='new_product.html?value='+oneValues()">新增商品</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='update_product.html?value='+oneValues()">修改商品</button></p>
+  <p><button class="btn btn-outline-dark" type="button" onclick="window.location.href='profile.html?value='+oneValues()">更改個人資訊</button></p>
   </p>
   <style>
     aside {
@@ -99,28 +105,46 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 -->
 <script>
-  var bookid=0;
+var bookid=0;
   $( document ).ready( function() {
     console.log( "ready!" );
     emptyLikes();
     getLikes('likes')
   });
 
-  function emptyLikes() {
-    $('#likeList').empty();
-  }
+  $(function(){
+    //console.log(location.search.concat());
+    //manyValues();
+    $("#show").html(oneValues());
+    })
+    //接收一個值
+    function oneValues(){
+    var result;
+    var url=window.location.search; //獲取url中"?"符後的字串
+    if(url.indexOf("?")!=-1){
+        result = url.substr(url.indexOf("=")+1);
+       }
+    return result;
+    }
+    var test = oneValues();
+
+    function emptyLikes() {
+      $('#likeList').empty();
+    }
+
     function addLikes(likes) {
       for ( let like of likes ) {
-        bookid++;
+       bookid++;
         let html = '<div class="card col-3">';
         html += '<div class="card-body">';
         html += '<img src="' + like.imageUrl + '" class="card-img-top" alt="' + like.name + '">';
         html += '<h5 class="card-title">' + "書名:"+ like.name + '</h5>';
+        //html += '<p class="card-text">' + "商品剩餘數量:"+ like.account + '</p>';
+        //html += '<p class="card-text">' + "商品數量:"+ like.quantity + '</p>';
         html += '<p class="card-text">' + "商品價格:"+ like.price + '</p>';
-        html += '<a href="#" id="'+bookid+'" onclick ="addliketocart1(id)" class="btn btn-primary" >' + "加入購物車" + '</a>';
+        html += '<a id="'+bookid+'" onclick ="addliketocart1(id)" class="btn btn-primary" >' + "加入購物車" + '</a>';
         html += '</div>';
         html += '</div>';
-        console.log(bookid);
         $('#likeList').append(html);
       }
     }
@@ -130,7 +154,9 @@
       $.ajax({
           // The URL for the request
           url: targetUrl,
-
+          data: {
+                account : test
+          },
           // Whether this is a POST or GET request
           type: "GET",
 
@@ -157,17 +183,19 @@
         });
     }
 
-  function addliketocart1(id){
-       addliketocart('addliketocart/' + id);
+    function addliketocart1(id){
+       addliketocart('addliketocart/' + id,id);
+       history.go(0);
     }
-    function addliketocart(targetUrl)
+    function addliketocart(targetUrl,id)
     {
         $.ajax({
             // The URL for the request
             url: targetUrl ,
 
             data: {
-                id : $('#id').val()
+                id : id,
+                account : test
             },
 
             // Whether this is a POST or GET request
@@ -189,7 +217,6 @@
             console.dir( xhr );
         })
     }
-
     </script>
 </body>
 </html>
