@@ -30,24 +30,30 @@ public class LikeService {
           "    FROM bookstore.product\n" +
           "    INNER JOIN bookstore.like1\n" +
           "    ON ((bookstore.product.ID=bookstore.like1.BOOK) and like1.ACCOUNT = :account);";
-      System.out.println(query);
+      //System.out.println(query);
       return connection.createQuery(query).addParameter("account", account).executeAndFetch(Like.class);
     }
   }
 
   public String addlike(Integer like,String account) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      String query2 = "select product.ID from bookstore.product";
+      var result1= connection.createQuery(query2)
+          .executeScalarList(Integer.class);
+      System.out.println("result:"+result1);
+      var book= result1.get(like-1);
+      System.out.println("book:"+book);
+
       String query1 = "select count(BOOK) from bookstore.like1 where (ACCOUNT = :account and BOOK = :bookname)";
       var result= connection.createQuery(query1)
-          .addParameter("bookname", like)
+          .addParameter("bookname", book)
           .addParameter("account", account)
           .executeScalar(Integer.class);
       if(result==0){
         String query = "insert into bookstore.like1 (BOOK, ACCOUNT) VALUES(:bookname, :account)";
-
         System.out.println(query);
         connection.createQuery(query)
-            .addParameter("bookname", like)
+            .addParameter("bookname", book)
             .addParameter("account", account)
             .executeUpdate();
       }
@@ -64,6 +70,7 @@ public class LikeService {
       var result= connection.createQuery(query1)
           .addParameter("account", account)
           .executeScalarList(Integer.class);
+      System.out.println("result:"+result);
       var book= result.get(id-1);
       System.out.println("book:"+book);
       String query2 = "select count(BOOK) from bookstore.order1 where (ACCOUNT = :account and BOOK = :book)";

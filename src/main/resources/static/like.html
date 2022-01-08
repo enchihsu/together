@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.html">首頁</a>
+          <a class="nav-link active" aria-current="page" onclick="window.location.href='logining.html?value='+oneValues()">首頁</a>
         </li>
         </li>
 
@@ -145,6 +145,7 @@ var bookid=0;
         html += '<a id="'+bookid+'" onclick ="addliketocart1(id)" class="btn btn-primary" >' + "加入購物車" + '</a>';
         html += '</div>';
         html += '</div>';
+        console.log(bookid);
         $('#likeList').append(html);
       }
     }
