@@ -45,6 +45,7 @@ public class OrderService {
       String query1 = "select count(BOOK) from bookstore.order1 where (ACCOUNT = 0912345678 and BOOK = :book)";
       var result= connection.createQuery(query1).addParameter("book", bookid).executeScalar(Integer.class);
       System.out.println("count:"+result);
+
       if(result==0){
         String query = "insert into bookstore.order1 (BOOK, ACCOUNT, AMOUNT) VALUES(:bookname, 0912345678, 1)";
 

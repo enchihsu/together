@@ -21,7 +21,7 @@ public class LikeController {
   }
 
   @GetMapping("/addlike/{like}")
-  public String addlike(@PathVariable("like") String like) {
+  public String addlike(@PathVariable("like") Integer like) {
     return LikeManager.addlike(like);
   }
 
