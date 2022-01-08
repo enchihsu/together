@@ -38,19 +38,8 @@
         crossorigin="anonymous"></script>
 <script>
     $('#login_button').click(function() {
-      var tabledata;
       const account = $('#account').val();
       const password= $('#password').val();
-
-    sessionStorage.setItem('account', account)
-
-      console.log(account);
-      var arrayJSON = JSON.stringify(account);
-      let string = 'account'
-      localStorage.setItem('item', JSON.stringify(string));
-      console.log(arrayJSON);
-      sessionStorage.setItem("tabledata",arrayJSON);
-      console.log(tabledata);
 
       if (account.trim() === '') {
         alert('沒有輸入帳號!');

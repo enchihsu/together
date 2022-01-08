@@ -81,24 +81,21 @@
 </section>
 
 <body>
-  <div id="modal-overlay">
-    <div class="modal-data">
-      <h3>修改密碼</h3>
-      <div class="bottom">
-          <div class="tdLabel">原密碼 <input class="inputbox" id="initpw" type="password" οnpaste="return false;" οndragenter="return false;" οncοntextmen="return false"></input></div>
-          <div class="tdLabel">新密碼 <input id="pw" class="inputbox" type="password" placeholder="" ></input></div>
-          <div class="tdLabel">請再輸入一次新密碼 <input id="repw" class="inputbox" type="password" placeholder=""></input></div>
-          <button class="bottomstyle" onclick="submit()">確定更改</button>
-          <button class="bottomstyle" onclick="overlay()">取消</button>
-      </div>
+<div id="modal-overlay">
+  <div class="modal-data">
+    <h3>修改密碼</h3>
+    <div class="bottom">
+      <div class="tdLabel">原密碼 <input class="inputbox" id="initpw" type="password" οnpaste="return false;" οndragenter="return false;" οncοntextmen="return false"></input></div>
+      <div class="tdLabel">新密碼 <input id="pw" class="inputbox" type="password" placeholder="" ></input></div>
+      <div class="tdLabel">請再輸入一次新密碼 <input id="repw" class="inputbox" type="password" placeholder=""></input></div>
+      <button class="bottomstyle" onclick="submit()">確定更改</button>
+      <button class="bottomstyle" onclick="overlay()">取消</button>
     </div>
   </div>
+</div>
 </body>
 
 <script>
-var item = sessionStorage.getItem('user')
-var user = account ? JSON.stringify(account) : {}
-
    function overlay() {
           var e1 = document.getElementById('modal-overlay');
           $(".inputbox").val("").removeClass('change').attr("placeholder", ""); //清空輸入框
@@ -107,9 +104,6 @@ var user = account ? JSON.stringify(account) : {}
 
     /*修改密碼提交*/
     function submit() {
-    console.log(JSON.parse(localStorage.getItem('item')));
-        var tableData = JSON.parse(sessionStorage.getItem("tabledata"));
-        console.log(tabledata);
         if(checkpassword() && ($("#initpw").val().length > 0)) {
             alert("密碼更改成功");
         } else {
