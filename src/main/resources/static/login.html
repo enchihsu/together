@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -8,98 +8,30 @@
 </head>
 
 <body>
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">bookstore</a>
+
+    </div>
+    </div>
+</nav>
+<nav class="container">
+    <form id="login_form">
+        <div class="form-group">
+            <label>帳號:</label>
+            <input id="account" aria-label="account_text">
         </div>
+        <div class="form-group">
+            <label>密碼:</label>
+            <input type="password" id="password">
+        </div>
+        <button class="btn btn-outline-success" type="button" id="login_button">登入</button>
+        <button class="btn btn-outline-primary" type="button" onclick="location.href='register.html'">註冊</button>
+    </form>
+    <div>
+        <p><input type ="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='index.html'" value="回到首頁"></p>
     </div>
-</nav>-->
-    <div id="login_frame" >
-        <form id="login_form">
-            <div class="form-group">
-                <p><label class="label_input">帳號:</label>
-                    <input class="text_field" id="account" aria-label="account_text"></p>
-                <p><label class="label_input">密碼:</label>
-                <input class="text_field" type="password" id="password"><br></p>
-            </div>
-            <button class="btn btn-outline-success" type="button" id="login_button">登入</button>
-            <button class="btn btn-outline-primary" type="button" id="register_button" onclick="location.href='register.html'" >註冊</button>
-        </form>
-    </div>
-<style>
-    body {
-        background-image: url("https://i.imgur.com/S31yAlk.jpg");;
-        background-size: 100%;
-        background-repeat: no-repeat;
-       }
-    #login_frame {
-        width: 400px;
-        height: 260px;
-        padding: 13px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -200px;
-        margin-top: -200px;
-        background-color: rgba(240, 255, 255, 0.5);
-        border-radius: 10px;
-        text-align: center;
-       }
-    form p > * {
-        display: inline-block;
-        vertical-align: middle;
-       }
-    #image_logo {
-        margin-top: 22px;
-    }
-    .label_input {
-        font-size: 14px;
-        font-family: 宋體;
-        width: 65px;
-        height: 28px;
-        line-height: 28px;
-        text-align: center;
-        color: white;
-        background-color: #3CD8FF;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
-    .text_field {
-        width: 278px;
-        height: 28px;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border: 0;
-    }
-    #login_button {
-        font-size: 14px;
-        font-family: 宋體;
-        width: 120px;
-        height: 28px;
-        line-height: 28px;
-        text-align: center;
-        color: white;
-        background-color: #3BD9FF;
-        border-radius: 6px;
-        border: 0;
-        float: left;
-    }
-    #forget_pwd {
-        font-size: 12px;
-        color: white;
-        text-decoration: none;
-        position: relative;
-        float: right;
-        top: 5px;
-    }
-    #forget_pwd:hover {
-        color: blue;
-        text-decoration: underline;
-    }
-    #login_control {
-        padding: 0 28px;
-    }
-</style>
+</nav>
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -123,14 +55,17 @@
             dataType:"text",
         }).done(function(text) {
             if (text=="OK"){
-                 var account1 = $('#account').val();
-                 window.location.href="logining.html?valus="+account1;
+                var account1 = $('#account').val();
+                window.location.href="logining.html?valus="+account1;
+                 //console.log( valus );
+                //location.href="logining.html";
             }else {
                 alert("使用者名稱或密碼輸入錯誤");
             }
         })
       }
     });
+
     </script>
 </body>
 </html>
