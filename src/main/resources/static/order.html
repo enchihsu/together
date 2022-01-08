@@ -12,7 +12,6 @@
   <title>bookstore</title>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">bookstore</a>
@@ -26,10 +25,7 @@
           <a class="nav-link active" aria-current="page" href="index.html">首頁</a>
         </li>
         </li>
-
       </ul>
-
-
       <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
         <li class="nav-item">
           <a class="nav-link" href="#">登出</a>
@@ -41,8 +37,6 @@
           <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
         </li>
       </ul>
-
-
     </div>
   </div>
 </nav>
@@ -163,8 +157,6 @@ Optional JavaScript; choose one of the two! -->
     getCheckouts('checkouts');
   });
     $(function(){
-    //console.log(location.search.concat());
-    //manyValues();
     $("#show").html(oneValues());
     })
     //接收一個值
@@ -177,7 +169,6 @@ Optional JavaScript; choose one of the two! -->
     return result;
     }
     var test = oneValues();
-
     function emptyCheckouts() {
       $('#showOrder').empty();
       $('#amountList').remove();
@@ -195,18 +186,9 @@ Optional JavaScript; choose one of the two! -->
         if (a != checkout.cid){
             if(flag == 1){
                 count3[i]=checkout.price*checkout.amount;
-                //console.log(count3[i]);
                 flag=2;
                 }else{
-                    //var sum=0;
-                    //for (var j = 0; j < count3.length; j++) {
-                    //    sum += count3[j];
-                    //    count3[j]=0;
-                    //    console.log("SUM:"+ sum);
-                    //  };
                     count1[hit]=count3[i];
-                    //console.log(hit);
-                    //console.log(count1[hit]);
                     count3[i]=0;
                     count3[i]=checkout.price*checkout.amount;
                     hit=hit+1;
@@ -215,8 +197,6 @@ Optional JavaScript; choose one of the two! -->
         }
         else{
             count3[i]=count3[i]+checkout.price*checkout.amount;
-            //console.log(i);
-            //console.log(count3[i]);
         }
          a = checkout.cid;
       }
