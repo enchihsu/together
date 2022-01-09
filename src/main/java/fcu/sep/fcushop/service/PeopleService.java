@@ -2,14 +2,17 @@ package fcu.sep.fcushop.service;
 
 import fcu.sep.fcushop.database.Sql2oDbHandler;
 import fcu.sep.fcushop.model.People;
-import java.util.List;
-
 import fcu.sep.fcushop.model.Product;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.sql2o.Connection;
 import org.w3c.dom.html.HTMLBRElement;
+
+/**
+ * peopleservice.
+ */
 
 @Service
 public class PeopleService {
@@ -20,19 +23,21 @@ public class PeopleService {
   public PeopleService() {
 
   }
+
   /**
-   * 点对 (x,y) 的水平和垂直距离.
+   * peopleservice.
    */
-  public String login(String account, String password){
+
+  public String login(String account, String password) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "select count(*)"
           + " from bookstore.people where account =:account and password =:password";
       int c;
-      c=connection.createQuery(query)
+      c = connection.createQuery(query)
           .addParameter("account", account)
           .addParameter("password", password)
           .executeScalar(Integer.class);
-      if(c==1) {
+      if (c == 1) {
         return "OK";
       } else {
         return "NO";
@@ -40,8 +45,11 @@ public class PeopleService {
     }
   }
 
-  public String Register(String account, String password, String name, String address, String birthday, String sex, String mail)
-  {
+  /**
+   * peopleservice.
+   */
+
+  public String Register(String account, String password, String name, String address, String birthday, String sex, String mail) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "insert into people (ACCOUNT, PASSWORD, NAME, ADDRESS, BIRTHDAY, SEX, MAIL) "
           + "VALUES(:account, :password, :name, :address, :birthday, :sex, :mail)";
@@ -60,26 +68,29 @@ public class PeopleService {
     }
   }
 
-  public String UpdatePeople(String account, String password, String orginpass)
-  {
+  /**
+   * peopleservice.
+   */
+
+  public String UpdatePeople(String account, String password, String orginpass) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "select PASSWORD" + " from bookstore.people where ACCOUNT =:account";
-      var c=connection.createQuery(query)
+      var c = connection.createQuery(query)
           .addParameter("account", account)
           .executeScalar(String.class);
       int result = c.compareTo(orginpass);
       System.out.println(result);
 
-      if(result==0) {
-        String query_1 = "Update bookstore.people " + "SET PASSWORD=:password WHERE ACCOUNT = :account";
+      if (result == 0) {
+        String query_1 = "Update bookstore.people "
+            + "SET PASSWORD=:password WHERE ACCOUNT = :account";
         System.out.println(query_1);
         connection.createQuery(query_1)
             .addParameter("account", account)
             .addParameter("password", password)
             .executeUpdate();
         return "OK";
-      }
-      else {
+      } else {
         return "NO";
       }
     }

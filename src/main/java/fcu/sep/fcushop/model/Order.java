@@ -1,6 +1,10 @@
 package fcu.sep.fcushop.model;
 
-public class Order{
+/**
+ * Order.
+ */
+
+public class Order {
 
   private String id;
 
@@ -25,7 +29,7 @@ public class Order{
    * 点对 (x,y) 的水平和垂直距离.
    */
 
-  public Order(String id, String account, String book,String imageUrl, String price, String amount) {
+  public Order(String id, String account, String book, String imageUrl, String price, String amount) {
     this.id = id;
     this.account = account;
     this.book = book;
@@ -38,7 +42,9 @@ public class Order{
     return id;
   }
 
-  public void setId(String id) { this.id = id; }
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public String getAccount() {
     return account;
@@ -68,7 +74,9 @@ public class Order{
     return price;
   }
 
-  public void setPrice(String price) { this.price = price; }
+  public void setPrice(String price) {
+    this.price = price;
+  }
 
   public String getAmount() {
     return amount;

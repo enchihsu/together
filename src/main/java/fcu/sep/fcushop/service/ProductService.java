@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.sql2o.Connection;
-/**
- * 点对 (x,y) 的水平和垂直距离.
- */
 
+/**
+ * productservice.
+ */
 
 @Service
 public class ProductService {
@@ -21,8 +21,9 @@ public class ProductService {
   public ProductService() {
 
   }
+
   /**
-   * 点对 (x,y) 的水平和垂直距离.
+   * productservice.
    */
 
   public List<Product> getProducts() {
@@ -36,7 +37,7 @@ public class ProductService {
 
 
   /**
-   * 点对 (x,y) 的水平和垂直距离.
+   * productservice.
    */
 
   public List<Product> getProducts(String keyword) {
@@ -45,13 +46,16 @@ public class ProductService {
           + " from bookstore.product where name like :keyword";
 
       return connection.createQuery(query)
-          .addParameter("keyword", "%"+keyword+"%")
+          .addParameter("keyword", "%" + keyword + "%")
           .executeAndFetch(Product.class);
     }
   }
 
-  public String AddProduct(String book_name, String img_url, int price, int quantity, String description)
-  {
+  /**
+   * productservice.
+   */
+
+  public String AddProduct(String book_name, String img_url, int price, int quantity, String description) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "insert into bookstore.product (NAME, IMAGE_URL, PRICE, QUANTITY, DESCRIPTION) "
           + "VALUES(:book_name, :img_url, :price, :quantity, :description)";
@@ -68,8 +72,11 @@ public class ProductService {
     }
   }
 
-  public String UpdateProduct(String book_name, int price)
-  {
+  /**
+   * productservice.
+   */
+
+  public String UpdateProduct(String book_name, int price) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "Update bookstore.product "
           + "SET PRICE= :price WHERE NAME = :book_name";

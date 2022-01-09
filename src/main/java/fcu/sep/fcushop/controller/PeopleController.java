@@ -4,6 +4,9 @@ import fcu.sep.fcushop.model.People;
 import fcu.sep.fcushop.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+/**
+ * Peoplecontroller.
+ */
 
 @RestController
 public class PeopleController {
@@ -11,16 +14,16 @@ public class PeopleController {
   @Autowired
   PeopleService peopleManager;
 
-  @RequestMapping(value="/login", method = RequestMethod.POST)
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
   @ResponseBody
   public String login(
       @RequestParam("account") String account,
       @RequestParam("password") String password
-  ){
-    return peopleManager.login(account,password);
+  ) {
+    return peopleManager.login(account, password);
   }
 
-  @RequestMapping(value="/register_product", method = RequestMethod.GET)
+  @RequestMapping(value = "/register_product", method = RequestMethod.GET)
   @ResponseBody
   public String registerProduct(
       @RequestParam("account") String account,
@@ -30,19 +33,17 @@ public class PeopleController {
       @RequestParam("birthday") String birthday,
       @RequestParam("sex") String sex,
       @RequestParam("mail") String mail
-  )
-  {
+  ) {
     return peopleManager.Register(account, password, name, address, birthday, sex, mail);
   }
 
-  @RequestMapping(value="/profile", method = RequestMethod.GET)
+  @RequestMapping(value = "/profile", method = RequestMethod.GET)
   @ResponseBody
   public String updatePeople(
       @RequestParam("account") String account,
       @RequestParam("password") String password,
       @RequestParam("orginpass") String orginpass
-  )
-  {
+  ) {
     return peopleManager.UpdatePeople(account, password, orginpass);
   }
 

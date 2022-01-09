@@ -1,6 +1,10 @@
 package fcu.sep.fcushop.model;
 
-public class People{
+/**
+ * People.
+ */
+
+public class People {
 
   private String people_name;
 
@@ -17,14 +21,14 @@ public class People{
   private String mail;
 
   /**
-   * 点对 (x,y) 的水平和垂直距离.
+   * People.
    */
 
   public People() {
   }
 
   /**
-   * 点对 (x,y) 的水平和垂直距离.
+   * People.
    */
 
   public People(String people_name, String account, String password, String address, String birthday, String sex, String mail) {
@@ -49,7 +53,9 @@ public class People{
     return account;
   }
 
-  public void setAccount(String account) { this.account = account; }
+  public void setAccount(String account) {
+    this.account = account;
+  }
 
   public String getPassword() {
     return password;
@@ -67,7 +73,9 @@ public class People{
     this.address = address;
   }
 
-  public String getBirthday() { return birthday; }
+  public String getBirthday() {
+    return birthday;
+  }
 
   public void setBirthday(String birthday) {
     this.birthday = birthday;

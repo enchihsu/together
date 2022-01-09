@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 点对 (x,y) 的水平和垂直距离.
+ * ProductController.
  */
 
 @RestController
@@ -26,7 +26,7 @@ public class ProductController {
     return productManager.getProducts(keyword);
   }
 
-  @RequestMapping(value="/add_product", method = RequestMethod.GET)
+  @RequestMapping(value = "/add_product", method = RequestMethod.GET)
   @ResponseBody
   public String addProduct(
       @RequestParam("book_name") String book_name,
@@ -34,18 +34,16 @@ public class ProductController {
       @RequestParam("price") Integer price,
       @RequestParam("quantity") Integer quantity,
       @RequestParam("description") String description
-  )
-  {
+  ) {
     return productManager.AddProduct(book_name, img_url, price, quantity, description);
   }
 
-  @RequestMapping(value="/update_product", method = RequestMethod.GET)
+  @RequestMapping(value = "/update_product", method = RequestMethod.GET)
   @ResponseBody
   public String updateProduct(
       @RequestParam("book_name") String book_name,
       @RequestParam("price") Integer price
-  )
-  {
+  ) {
     return productManager.UpdateProduct(book_name, price);
   }
 }

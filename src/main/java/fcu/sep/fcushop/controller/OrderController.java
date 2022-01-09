@@ -3,10 +3,15 @@ package fcu.sep.fcushop.controller;
 import fcu.sep.fcushop.model.Order;
 import fcu.sep.fcushop.model.Product;
 import fcu.sep.fcushop.service.OrderService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
+
+/**
+ * ordercontroller.
+ */
 
 @RestController
 public class OrderController {
@@ -19,6 +24,7 @@ public class OrderController {
       @RequestParam("account") String account
   ) {
     return orderManager.getOrders(account);
+
   }
 
   @GetMapping("/addcart/{book}")
@@ -26,7 +32,8 @@ public class OrderController {
       @RequestParam("book") Integer book,
       @RequestParam("account") String account
   ) {
-    return orderManager.addcart(book,account);
+    return orderManager.addcart(book, account);
+
   }
 
   @GetMapping("/deleteproduct/{book}")
@@ -34,7 +41,8 @@ public class OrderController {
       @RequestParam("book") Integer book,
       @RequestParam("account") String account
   ) {
-    return orderManager.deleteproduct(book,account);
+    return orderManager.deleteproduct(book, account);
+
   }
 
   @GetMapping("/plus/{id}")
@@ -42,7 +50,8 @@ public class OrderController {
       @RequestParam("id") Integer id,
       @RequestParam("account") String account
   ) {
-    return orderManager.plus(id,account);
+    return orderManager.plus(id, account);
+
   }
 
   @GetMapping("/minus/{id}")
@@ -50,7 +59,7 @@ public class OrderController {
       @RequestParam("id") Integer id,
       @RequestParam("account") String account
   ) {
-    return orderManager.minus(id,account);
+    return orderManager.minus(id, account);
   }
 
 

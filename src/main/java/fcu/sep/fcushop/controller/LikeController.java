@@ -4,10 +4,14 @@ import fcu.sep.fcushop.model.Like;
 import fcu.sep.fcushop.model.Product;
 import fcu.sep.fcushop.service.LikeService;
 import fcu.sep.fcushop.service.ProductService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
+/**
+ * likecontroller.
+ */
 
 @RestController
 public class LikeController {
@@ -27,7 +31,7 @@ public class LikeController {
       @RequestParam("like") Integer like,
       @RequestParam("account") String account
   ) {
-    return LikeManager.addlike(like,account);
+    return LikeManager.addlike(like, account);
   }
 
   @GetMapping("/addliketocart/{id}")
@@ -35,6 +39,6 @@ public class LikeController {
       @RequestParam("id") Integer id,
       @RequestParam("account") String account
   ) {
-    return LikeManager.addliketocart(id,account);
+    return LikeManager.addliketocart(id, account);
   }
 }

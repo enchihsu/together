@@ -1,5 +1,9 @@
 package fcu.sep.fcushop.model;
 
+/**
+ * like.
+ */
+
 public class Like {
   private long id;
 
@@ -15,8 +19,16 @@ public class Like {
 
   private int book;
 
+  /**
+   * like.
+   */
+
   public Like() {
   }
+
+  /**
+   * like.
+   */
 
   public Like(long id, String account, int quantity, int price, String name, String imageUrl, int book) {
     this.id = id;
@@ -25,7 +37,7 @@ public class Like {
     this.price = price;
     this.name = name;
     this.imageUrl = imageUrl;
-    this.book =book;
+    this.book = book;
   }
 
   public long getId() {

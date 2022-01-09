@@ -1,5 +1,9 @@
 package fcu.sep.fcushop.model;
 
+/**
+ * checkout.
+ */
+
 public class Checkout {
   private long id;
   private int cid;
@@ -12,10 +16,16 @@ public class Checkout {
   private String amount;
   private String imageUrl;
   private int price;
+
   public Checkout() {
   }
-  public Checkout(Long id,String invoice,String delivery,String address,String payment,Integer cid,String account,String book,String amount,String imageUrl,Integer price) {
-    this.id =id;
+
+  /**
+   * 点对 (x,y) 的水平和垂直距离.
+   */
+
+  public Checkout(Long id, String invoice, String delivery, String address, String payment, Integer cid, String account, String book, String amount, String imageUrl, Integer price) {
+    this.id = id;
     this.invoice = invoice;
     this.delivery = delivery;
     this.address = address;
@@ -27,7 +37,10 @@ public class Checkout {
     this.imageUrl = imageUrl;
     this.price = price;
   }
-  public Long getId(){ return id;}
+
+  public Long getId() {
+    return id;
+  }
 
   public void setId(long id) {
     this.id = id;
@@ -37,23 +50,41 @@ public class Checkout {
     return cid;
   }
 
-  public void setCid(Integer cid) { this.cid = cid; }
+  public void setCid(Integer cid) {
+    this.cid = cid;
+  }
 
-  public String getInvoice(){ return invoice; }
+  public String getInvoice() {
+    return invoice;
+  }
 
-  public void setInvoice(String invoice) { this.invoice = invoice; }
+  public void setInvoice(String invoice) {
+    this.invoice = invoice;
+  }
 
-  public String getDelivery(){ return delivery; }
+  public String getDelivery() {
+    return delivery;
+  }
 
-  public void setDelivery(String delivery) { this.delivery = delivery; }
+  public void setDelivery(String delivery) {
+    this.delivery = delivery;
+  }
 
-  public String getAddress(){ return address; }
+  public String getAddress() {
+    return address;
+  }
 
-  public void setAddress(String address) { this.address = address; }
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-  public String getPayment(){ return payment; }
+  public String getPayment() {
+    return payment;
+  }
 
-  public void setPayment(String payment) { this.payment = payment; }
+  public void setPayment(String payment) {
+    this.payment = payment;
+  }
 
   public String getAccount() {
     return account;

@@ -1,7 +1,7 @@
 package fcu.sep.fcushop.model;
 
 /**
- * 点对 (x,y) 的水平和垂直距离.
+ * Product.
  */
 
 public class Product {
@@ -19,14 +19,14 @@ public class Product {
   private String description;
 
   /**
-   * 点对 (x,y) 的水平和垂直距离.
+   * Product.
    */
 
   public Product() {
   }
 
   /**
-   * 点对 (x,y) 的水平和垂直距离.
+   * Product.
    */
 
   public Product(long id, String name, String imageUrl, int price, int quantity, String description) {
