@@ -184,7 +184,6 @@
         $.ajax({
             url:"/reallycheckout",
             type:"POST",
-
             data:{"account" : test,"invoice":invoice,"delivery":delivery,"address":address,"payment":payment},
             dataType:"text",
         }).done(function(text) {
