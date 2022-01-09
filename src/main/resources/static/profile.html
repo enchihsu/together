@@ -90,13 +90,50 @@
 <div id="modal-overlay">
   <div class="modal-data">
     <h3>修改密碼</h3>
-    <div class="bottom">
-      <div class="tdLabel">原密碼 <input class="inputbox" id="initpw" type="password" οnpaste="return false;" οndragenter="return false;" οncοntextmen="return false"></input></div>
-      <div class="tdLabel">新密碼 <input id="pw" class="inputbox" type="password" placeholder="" ></input></div>
-      <div class="tdLabel">請再輸入一次新密碼 <input id="repw" class="inputbox" type="password" placeholder=""></input></div>
-      <button class="bottomstyle" onclick="submit()">確定更改</button>
-      <button class="bottomstyle" onclick="overlay()">取消</button>
+    <style type="text/css">
+              .Data-Content {
+                  width: 80%; /* 表單寬度 */
+                  line-height: 40px;
+              }
+
+              .Data-Title {
+                  float: left;
+                  width: 25%; /* Label寬度，視情況調整 */
+                  margin-right: 20px;
+              }
+
+              .Data-Items {
+                  float: left;
+                  width: 35%;
+              }
+
+              .AlignRight {
+                  text-align: right;
+              }
+          </style>
+
+    <div class="Data-Content">
+      <div class="Data-Title">
+        <div class="AlignRight">
+          <label for="txt_birth">原密碼</label><br />
+          <label for="txt_phone">新密碼</label><br />
+          <label for="txt_id">請再輸入一次新密碼</label><br />
+          <br />
+          <button class="bottomstyle" onclick="submit()">確定更改</button>
+          <button class="bottomstyle" onclick="overlay()">取消</button>
+        </div>
+      </div>
+
+
+
+      <div class="Data-Items">
+        <input class="inputbox" id="initpw" type="password" οnpaste="return false;" οndragenter="return false;" οncοntextmen="return false" /><br />
+        <input id="pw" class="inputbox" type="password" placeholder=""  /> <input type="checkbox" onclick="myFunction()"> Show Password <br />
+        <input id="repw" class="inputbox" type="password" placeholder="" /><br />
+      </div>
     </div>
+  </div>
+</div>
   </div>
 </div>
 </body>
@@ -114,6 +151,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 -->
 <script>
+function myFunction() {
+  var x = document.getElementById("pw");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
 $( document ).ready( function() {
     console.log( "ready!" );
   });
@@ -181,11 +227,11 @@ $(function(){
 
         .done(function( text ) {
             if(text == "OK")
-                alert("pass");
+                alert("密碼修改成功");
             else if(text == "NO")
-                alert("orginpassword different")
+                alert("原密碼輸入錯誤")
             else
-                alert("fail");
+                alert("密碼修改失敗");
         })
         .fail( function(xhr, status, errorThrown) {
             console.log( "Sorry, there was a problem!" );
