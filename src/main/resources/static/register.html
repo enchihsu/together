@@ -10,21 +10,177 @@
 
     <title>register</title>
     <style type="text/css">
-  body {
+    body {
     color: black;
     background-color: white }
   </style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">bookstore</a>
-
+<div id="register_frame" >
+    <form id="register_form">
+        <div class="form-group">
+            <p><label class="up">REGISTER</label></p>
+            <p><label class="label_input" for="account">使用者帳號：</label>
+                <input class="text_field" type="text" id="account" placeholder="請輸入手機號碼"></p>
+            <p><label class="label_input" for="password">密碼:</label>
+                <input class="text_field" type="password" id="password" placeholder="請輸入密碼"><br></p>
+            <p><label class="label_input" for="password1">確認密碼：</label>
+                <input class="text_field" type="password" id="password1" placeholder="請再次輸入密碼"><br></p>
+            <p><label class="label_input" for="name">姓名:</label>
+                <input class="text_field" type="text" id="name" placeholder="請輸入姓名"><br></p>
+            <p><label class="label_input">居住地區：</label>
+                <select id="address" style="width:278px;">
+                    <option value="暫不提供">暫不提供 None</option>
+                    <option value="Keelung">基隆 Keelung</option>
+                    <option value="Taipei">臺北 Taipei</option>
+                    <option value="New Taipei">新北 New Taipei</option>
+                    <option value="Taoyuan">桃園 Taoyuan</option>
+                    <option value="Hsinchu">新竹 Hsinchu</option>
+                    <option value="Miaoli">苗栗 Miaoli</option>
+                    <option value="Taichung">臺中 Taichung</option>
+                    <option value="Changhua">彰化 Changhua</option>
+                    <option value="Nantou">南投 Nantou</option>
+                    <option value="Yunlin">雲林 Yunlin</option>
+                    <option value="Chiayi">嘉義 Yunlin</option>
+                    <option value="Tainan">臺南 Tainan</option>
+                    <option value="Kaohsiung">高雄 Kaohsiung</option>
+                    <option value="Pingtung">屏東 Pingtung</option>
+                    <option value="Taitung">臺東 Taitung</option>
+                    <option value="Hualien">花蓮 Hualien</option>
+                    <option value="Yilan">宜蘭 Yilan</option>
+                    <option value="Penghu">澎湖 Penghu</option>
+                    <option value="Kinmen">金門 Kinmen</option>
+                </select></p>
+            <p><label class="label_input" for="birthday">出生日期:</label>
+                <input class="text_field" type="date" id="birthday" placeholder="請輸入出生日期"><br></p>
+            <p><label class="label_input">性別：</label>
+                <input type="radio" name="sex" value="男">男 Male&nbsp&nbsp</input>
+                <input type="radio" name="sex" value="女">女 Female&nbsp&nbsp</input>
+                <input type="radio" name="sex" value="暫不提供" checked>暫不提供&nbsp&nbsp&nbsp</input></p>
+            <p><label class="label_input" for="password1">電子郵件：</label>
+                <input class="text_field" type="text" id="mail" placeholder="請輸入電子郵件"><br></p>
+        </div>
+        <button class="btn btn-outline-success" type="button" id="login_button">註冊</button>
+    </form>
+    <div>
+        <p><input type ="button" class="btn btn-outline-secondary btn-sm" id="home_button" onclick="location.href='index.html'" value="回到首頁"></p>
     </div>
-    </div>
-</nav>
+</div>
+<style>
+    body {
+        background-image: url("https://i.imgur.com/S31yAlk.jpg");;
+        background-size: 100%;
+        background-repeat: no-repeat;
+       }
+    #register_frame {
+        width: 450px;
+        height: 550px;
+        padding: 13px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -200px;
+        margin-top: -250px;
+        background-color: rgba(240, 255, 255, 0.5);
+        border-radius: 10px;
+        text-align: center;
+       }
+    form p > * {
+        display: inline-block;
+        vertical-align: middle;
+       }
 
+    #image_logo {
+        margin-top: 22px;
+    }
+    .up{
+        font-family:sans-serif;
+        font-size: 35px;
+        color: white;
+    }
+    .label_input {
+        margin-top: 3px;
+        font-size: 14px;
+        font-family: 宋體;
+        width: 90px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        color: white;
+        background-color: #808080;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+    .text_field {
+        margin-top: 3px;
+        width: 278px;
+        height: 28px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: 0;
+    }
+    #login_button {
+        margin-top: 4px;
+        margin-left:25px;
+        font-size: 14px;
+        font-family: 宋體;
+        width: 375px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        color: white;
+        background-color: #808080;
+        border-radius: 6px;
+        border: 0;
+        float: left;
+    }
+    #register_button {
+        margin-top: 3px;
+        margin-left:70px;
+        font-size: 14px;
+        font-family: 宋體;
+        width: 150px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        color: white;
+        background-color: #808080;
+        border-radius: 6px;
+        border: 0;
+        float: left;
+    }
+    #home_button {
+        margin-top: 3px;
+        margin-left:100px;
+        font-size: 14px;
+        font-family: 宋體;
+        width: 210px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        color: white;
+        background-color: #808080;
+        border-radius: 6px;
+        border: 0;
+        float: left;
+    }
+    #forget_pwd {
+        font-size: 12px;
+        color: white;
+        text-decoration: none;
+        position: relative;
+        float: right;
+        top: 5px;
+    }
+    #forget_pwd:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+    #login_control {
+        padding: 0 28px;
+    }
+</style>
+<!-- Optional
 <form action="#">
     <h2 align="center">註冊</h2>
     <a id="position"></a>
@@ -82,7 +238,7 @@
             <td>
                 <input type="radio" name="sex" value="男">男 Male&nbsp</input>
                 <input type="radio" name="sex" value="女">女 Female&nbsp</input>
-                <input type="radio" name="sex" value="暫不提供">暫不提供 None&nbsp</input>
+                <input type="radio" name="sex" value="暫不提供" checked>暫不提供 None&nbsp</input>
             </td>
         </tr>
         <tr>
@@ -100,7 +256,7 @@
         <p><input type ="button" class="btn btn-secondary btn-sm" onclick="location.href='index.html'" value="回到首頁"></p>
     </div>
 </form>
-
+-->
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
