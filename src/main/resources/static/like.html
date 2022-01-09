@@ -89,7 +89,56 @@
 
     </div>
 </section>
-
+<style>
+    .button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 22px;
+    border: 1px solid #226499;
+    border-radius: 8px;
+    background: #226499;
+    background: -webkit-gradient(linear, left top, left bottom, from(#226499), to(#216298));
+    background: -moz-linear-gradient(top, #226499, #216298);
+    background: linear-gradient(to bottom, #226499, #216298);
+    -webkit-box-shadow: #3194e4 0px 0px 0px 0px;
+    -moz-box-shadow: #3194e4 0px 0px 0px 0px;
+    box-shadow: #3194e4 0px 0px 0px 0px;
+    text-shadow: #153e5f 1px 1px 1px;
+    font: normal normal bold 15px arial;
+    color: #ffffff;
+    text-decoration: none;
+}
+.button:hover,
+.button:focus {
+    border: 1px solid #36a0f5;
+    background: #2978b8;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2978b8), to(#2876b6));
+    background: -moz-linear-gradient(top, #2978b8, #2876b6);
+    background: linear-gradient(to bottom, #2978b8, #2876b6);
+    color: #ffffff;
+    text-decoration: none;
+}
+.button:active {
+    background: #143c5c;
+    background: -webkit-gradient(linear, left top, left bottom, from(#143c5c), to(#216298));
+    background: -moz-linear-gradient(top, #143c5c, #216298);
+    background: linear-gradient(to bottom, #143c5c, #216298);
+}
+.button:before{
+    content:  "\0000a0";
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    margin: 0 4px -6px -4px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABsklEQVRIibXVvWpUQRQH8F80xGUJQYRFIkFRQyLbaREkT2DjC6TwRaztfAUrCwuRPIBYWdqIhW4CfhJsNCLB3WRJFIs5406u3P2I6x+Ge86c/5wz55yZuTMSmo7jAL9MCU18xJdiPJmW8zJIHgt4i+VpOJ6Nb68y/wo38PmEfv+UeLaG0MGDIEKjkMt1R8VcyXmN29ir28EdPDIo23usFfq9GFlfC07Wn+MWnBqSwbJUuh62sVToR+gX+lJwsn5OlHdUgLnQt7FS2H9W+CvByT4v4NOwAHv4EUTYwmoNV9i2Qr4Y678P4YNnUhm62I9dd2P0C1s3bPuF7Wl2UpcBqUx30cJ1fMVi6PdjtHAe34LTijW5XEMDvMFVqWkfpH40Qs8Z9DAf87nJlw3KNTKDdsgH2DG43acL3pXYQH67ro2bQUc6HQvS2X4XAZvSRTsTcjtsTel4tmPtSMxh16CRhwaN7Vfkw4L3cBznGS+wPsmCKureoowObuLlBD6PPZwzI8jreIyzEzi/VA0yDhpT4vyFeWxKf7nN0CfiDDumsBGc1fhuTMoZFeC/459LNC5O3OTfmvd7Bl92lsYAAAAASUVORK5CYII=") no-repeat left center transparent;
+    background-size: 100% 100%;
+}
+</style>
 
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -142,7 +191,7 @@ var bookid=0;
         //html += '<p class="card-text">' + "商品剩餘數量:"+ like.account + '</p>';
         //html += '<p class="card-text">' + "商品數量:"+ like.quantity + '</p>';
         html += '<p class="card-text">' + "商品價格:"+ like.price + '</p>';
-        html += '<a id="'+bookid+'" onclick ="addliketocart1(id)" class="btn btn-primary" >' + "加入購物車" + '</a>';
+        html += '<a id="'+bookid+'" onclick ="addliketocart1(id)" class="button" >' + "加入購物車" + '</a>';
         html += '</div>';
         html += '</div>';
         console.log(bookid);
