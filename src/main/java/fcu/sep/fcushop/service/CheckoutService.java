@@ -21,7 +21,8 @@ public class CheckoutService {
 
   public List<Checkout> getCheckouts(String account) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "select product.NAME book,product.IMAGE_URL imageUrl,product.PRICE price,checkout.AMOUNT amount,checkout.CID cid,checkout.DELIVERY delivery,checkout.ADDRESS address,checkout.INVOICE invoice,checkout.PAYMENT payment"
+      String query = "select product.NAME book,product.IMAGE_URL imageUrl,product.PRICE price,checkout.AMOUNT amount," +
+          "checkout.CID cid,checkout.DELIVERY delivery,checkout.ADDRESS address,checkout.INVOICE invoice,checkout.PAYMENT payment"
           + " from  bookstore.product inner join bookstore.checkout on (product.ID=checkout.BOOK) and checkout.ACCOUNT =:account ";
 
       return connection.createQuery(query).addParameter("account", account).executeAndFetch(Checkout.class);
@@ -37,9 +38,11 @@ public class CheckoutService {
   //}
     public String checkout(String invoice,String delivery,String address,String payment,String account){
       try (Connection connection = sql2oDbHandler.getConnector().open()) {
-        String query3 = "insert into bookstore.checkout(ACCOUNT,BOOK,AMOUNT) select ACCOUNT account,BOOK book,AMOUNT amount from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
+        String query3 = "insert into bookstore.checkout(ACCOUNT,BOOK,AMOUNT) select ACCOUNT account,BOOK book,AMOUNT amount " +
+            "from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
         connection.createQuery(query3).addParameter("account", account).executeUpdate();
-        String query1 ="update bookstore.checkout set PAYMENT =:payment,DELIVERY =:delivery,INVOICE =:invoice,ADDRESS =:address where  bookstore.checkout.ACCOUNT=:account and bookstore.checkout.CID IS NULL";
+        String query1 ="update bookstore.checkout set PAYMENT =:payment,DELIVERY =:delivery,INVOICE =:invoice,ADDRESS =:address " +
+            "where  bookstore.checkout.ACCOUNT=:account and bookstore.checkout.CID IS NULL";
         //String query1 ="insert into bookstore.checkout (PAYMENT, DELIVERY, INVOICE, ADDRESS) VALUES(:payment, :delivery, :invoice, :address)";
         System.out.println(query1);
         connection.createQuery(query1)
@@ -49,7 +52,8 @@ public class CheckoutService {
             .addParameter("address", address)
             .addParameter("account", account)
             .executeUpdate();
-        String query2="update bookstore.checkout set cid = (select * from (select max(CID) cid FROM bookstore.checkout) as a)+1 where bookstore.checkout.ACCOUNT =:account and bookstore.checkout.CID IS NULL";
+        String query2="update bookstore.checkout set cid = (select * from (select max(CID) cid FROM bookstore.checkout) as a)+1 " +
+            "where bookstore.checkout.ACCOUNT =:account and bookstore.checkout.CID IS NULL";
         connection.createQuery(query2)
             .addParameter("account", account)
             .executeUpdate();
