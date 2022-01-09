@@ -92,6 +92,7 @@ public class OrderService {
 
   public String plus(Integer id,String account){
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
+      //String query2 = "select product.";
       String query1 = "select order1.BOOK from bookstore.order1 where (ACCOUNT = :account)";
       var result= connection.createQuery(query1)
           .addParameter("account", account)
