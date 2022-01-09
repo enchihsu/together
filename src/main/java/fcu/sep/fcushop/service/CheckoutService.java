@@ -57,7 +57,6 @@ public class CheckoutService {
         connection.createQuery(query2)
             .addParameter("account", account)
             .executeUpdate();
-
         String query4 ="delete from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
         connection.createQuery(query4)
             .addParameter("account", account)
