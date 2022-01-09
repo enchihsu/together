@@ -178,13 +178,12 @@
       const address= $('#address').val();
       const payment= $("[name='pay2']:checked").val();
       console.log(invoice);
-      if ( delivery.trim() === 'home' && address.trim() === '') {
+      if ( delivery.trim() === '宅配到府' && address.trim() === '') {
         alert('沒有地址!');
       } else {
         $.ajax({
             url:"/reallycheckout",
             type:"POST",
-
             data:{"account" : test,"invoice":invoice,"delivery":delivery,"address":address,"payment":payment},
             dataType:"text",
         }).done(function(text) {
