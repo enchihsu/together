@@ -63,12 +63,6 @@ public class CheckoutService {
             .executeScalarList(Integer.class);
         System.out.println("book:"+book);
 
-        String query8 ="select count(BOOK) from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
-        var count = connection.createQuery(query8)
-            .addParameter("account", account)
-            .executeScalar(Integer.class);
-        System.out.println("count:"+count);
-
         String query4 ="delete from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
         connection.createQuery(query4)
             .addParameter("account", account)
