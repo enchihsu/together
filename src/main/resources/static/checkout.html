@@ -178,7 +178,7 @@
       const address= $('#address').val();
       const payment= $("[name='pay2']:checked").val();
       console.log(invoice);
-      if ( delivery.trim() === 'home' && address.trim() === '') {
+      if ( delivery.trim() === '宅配到府' && address.trim() === '') {
         alert('沒有地址!');
       } else {
         $.ajax({

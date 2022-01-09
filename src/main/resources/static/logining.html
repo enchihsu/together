@@ -191,6 +191,8 @@
         .done(function( text ) {
             if(text == "Success")
                 alert("success 加入購物車");
+            else if(text == "No")
+                alert("fail 商品庫存不足");
             else
                 alert("fail");
         })

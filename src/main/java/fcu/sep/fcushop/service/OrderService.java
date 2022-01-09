@@ -37,6 +37,7 @@ public class OrderService {
 
   public String addcart(Integer book,String account) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
+
       String query3 = "select product.ID from bookstore.product";
       var result3= connection.createQuery(query3)
           .executeScalarList(Integer.class);
@@ -50,26 +51,43 @@ public class OrderService {
           .addParameter("account", account)
           .executeScalar(Integer.class);
       System.out.println("count:"+result);
+
       if(result==0){
         String query = "insert into bookstore.order1 (BOOK, ACCOUNT, AMOUNT) VALUES(:bookname, :account, 1)";
-
         System.out.println(query);
         connection.createQuery(query)
             .addParameter("bookname", bookid)
             .addParameter("account", account)
             .executeUpdate();
+        return "Success";
       }
       else{
-        String query ="Update bookstore.order1 SET AMOUNT = order1.AMOUNT+1  WHERE (BOOK = :bookname and ACCOUNT=:account)";
+        String query2 = "select product.QUANTITY from product where product.ID = :book;";
+        var quantity= connection.createQuery(query2)
+            .addParameter("book", bookid)
+            .executeScalar(Integer.class);
+        System.out.println("quantity:"+quantity);
 
-        System.out.println(query);
-        connection.createQuery(query)
-            .addParameter("bookname", bookid)
-            .addParameter("account", account)
-            .executeUpdate();
+        String query4 = "select AMOUNT from bookstore.order1 where BOOK = :book";
+        var amount = connection.createQuery(query4)
+            .addParameter("book", bookid)
+            .executeScalar(Integer.class);
+        System.out.println("amount:"+amount);
+
+        if(quantity>amount) {
+          String query = "Update bookstore.order1 SET AMOUNT = order1.AMOUNT+1  WHERE (BOOK = :bookname and ACCOUNT=:account)";
+          System.out.println(query);
+          connection.createQuery(query)
+              .addParameter("bookname", bookid)
+              .addParameter("account", account)
+              .executeUpdate();
+          return "Success";
+        }
+        else{
+          return "No";
+        }
       }
     }
-    return "Success";
   }
 
   public String deleteproduct(Integer book,String account){
@@ -92,7 +110,7 @@ public class OrderService {
 
   public String plus(Integer id,String account){
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      //String query2 = "select product.";
+
       String query1 = "select order1.BOOK from bookstore.order1 where (ACCOUNT = :account)";
       var result= connection.createQuery(query1)
           .addParameter("account", account)
@@ -100,12 +118,30 @@ public class OrderService {
       System.out.println("result:"+result);
       var bookid= result.get(id-1);
       System.out.println("bookid:"+bookid);
-      String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT+1 WHERE (BOOK=:id and ACCOUNT=:account)";
-      connection.createQuery(query)
-          .addParameter("id", bookid)
-          .addParameter("account", account)
-          .executeUpdate();
-      return "Success";
+
+      String query2 = "select product.QUANTITY from product where product.ID = :book;";
+      var quantity= connection.createQuery(query2)
+          .addParameter("book", bookid)
+          .executeScalar(Integer.class);
+      System.out.println("quantity:"+quantity);
+
+      String query4 = "select AMOUNT from bookstore.order1 where BOOK = :book";
+      var amount = connection.createQuery(query4)
+          .addParameter("book", bookid)
+          .executeScalar(Integer.class);
+      System.out.println("amount:"+amount);
+
+      if(quantity>amount){
+        String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT+1 WHERE (BOOK=:id and ACCOUNT=:account)";
+        connection.createQuery(query)
+            .addParameter("id", bookid)
+            .addParameter("account", account)
+            .executeUpdate();
+        return "Success";
+      }
+      else{
+        return "No";
+      }
     }
   }
 

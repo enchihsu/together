@@ -28,14 +28,7 @@ public class CheckoutService {
       return connection.createQuery(query).addParameter("account", account).executeAndFetch(Checkout.class);
     }
   }
-  //public List<Checkout> getCheckouts() {
-    //try (Connection connection = sql2oDbHandler.getConnector().open()) {
-    //  String query = "select distinct checkout.CID cid"
-     //     + " from  bookstore.checkout where checkout.ACCOUNT = 6 ";
 
-      //return connection.createQuery(query).executeAndFetch(Checkout.class);
-    //}
-  //}
     public String checkout(String invoice,String delivery,String address,String payment,String account){
       try (Connection connection = sql2oDbHandler.getConnector().open()) {
         String query3 = "insert into bookstore.checkout(ACCOUNT,BOOK,AMOUNT) select ACCOUNT account,BOOK book,AMOUNT amount " +
@@ -43,7 +36,6 @@ public class CheckoutService {
         connection.createQuery(query3).addParameter("account", account).executeUpdate();
         String query1 ="update bookstore.checkout set PAYMENT =:payment,DELIVERY =:delivery,INVOICE =:invoice,ADDRESS =:address " +
             "where  bookstore.checkout.ACCOUNT=:account and bookstore.checkout.CID IS NULL";
-        //String query1 ="insert into bookstore.checkout (PAYMENT, DELIVERY, INVOICE, ADDRESS) VALUES(:payment, :delivery, :invoice, :address)";
         System.out.println(query1);
         connection.createQuery(query1)
             .addParameter("payment", payment)
@@ -52,22 +44,48 @@ public class CheckoutService {
             .addParameter("address", address)
             .addParameter("account", account)
             .executeUpdate();
+
         String query2="update bookstore.checkout set cid = (select * from (select max(CID) cid FROM bookstore.checkout) as a)+1 " +
             "where bookstore.checkout.ACCOUNT =:account and bookstore.checkout.CID IS NULL";
         connection.createQuery(query2)
             .addParameter("account", account)
             .executeUpdate();
 
+        String query6 ="select AMOUNT from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
+        var amount = connection.createQuery(query6)
+            .addParameter("account", account)
+            .executeScalarList(Integer.class);
+        System.out.println("amount:"+amount);
+
+        String query7 ="select BOOK from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
+        var book = connection.createQuery(query7)
+            .addParameter("account", account)
+            .executeScalarList(Integer.class);
+        System.out.println("book:"+book);
+
+        String query8 ="select count(BOOK) from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
+        var count = connection.createQuery(query8)
+            .addParameter("account", account)
+            .executeScalar(Integer.class);
+        System.out.println("count:"+count);
+
         String query4 ="delete from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
         connection.createQuery(query4)
             .addParameter("account", account)
             .executeUpdate();
-        //String query ="select max(CID) cid"
-           // " FROM bookstore.checkout";
-        //int result= connection.createQuery(query).executeScalar(Integer.class);
-        //System.out.println(result);
-        //String query2 = "update bookstore.order1 set cid = (select max(CID) cid FROM bookstore.checkout) WHERE bookstore.order1.ACCOUNT = 6 and bookstore.order1.CID IS NULL";
-        //connection.createQuery(query2).executeUpdate();
+
+        int size = book.size();
+        for(int i =0; i<size; i++) {
+          int a = amount.get(i);
+          int b= book.get(i);
+          System.out.println("a:"+a);
+          System.out.println("b:"+b);
+          String query5 ="update bookstore.product set QUANTITY = QUANTITY-:amount where product.ID = :book;";
+          connection.createQuery(query5)
+              .addParameter("amount", a)
+              .addParameter("book", b)
+              .executeUpdate();
+        }
         return "Success";
     }
   }
