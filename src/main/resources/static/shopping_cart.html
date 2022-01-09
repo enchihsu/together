@@ -52,11 +52,11 @@
 <div>
     <div class="c-container">
         <div class="w">
-            <div class="cart-filter-bar">
-                <em>Item(s) in Cart</em>
+            <div class="cart-filter-bar" align="center">
+                <h2>Item(s) in Cart</h2>
             </div>
             <div class="cart-warp">
-                <table border="1" width="100%">
+                <table border="1" width="95%" align="center">
                     <div class="cart-thead">
                         <thead>
                         <tr>
@@ -89,8 +89,8 @@
                     <tr>
                         <td colspan="6">
                             <div class="toolbar-right">
-                                <div class="price-sum" id="amountList">
-                                    <font color="blue" size="6" face="monospace">Total Amount總金額 NT$</font>
+                                <div class="price-sum" id="amountList" align="right">
+                                    <font color="blue" size="5" face="monospace">Total Amount總金額 NT$</font>
                                 </div>
                             </div>
                         </td>
@@ -105,10 +105,21 @@
 <div class="cart-floatbar">
     <div class="operation">
         <a href="javascript:;" class="clear-all" id="clear">Clear shopping cart</a>
-        <button class="btn btn-outline-success" style="float:right;" type="button" onclick="window.location.href='checkout.html?value='+oneValues()" id="Checkout_button">Checkout</button>
+    </div>
+    <div class="operation1">
+        <button class="btn btn-outline-success" type="button" onclick="window.location.href='checkout.html?value='+oneValues()" id="Checkout_button">Checkout</button>
     </div>
 </div>
-
+<style>
+    .operation{
+        margin-top: 3px;
+        margin-left:40px;
+    }
+    .operation1{
+        margin-top: 3px;
+        margin-left:1400px;
+    }
+</style>
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -198,7 +209,7 @@
         count3[i]=order.price*order.amount;
         i++;
     }
-        let html =  '<font color="blue" size="6" face="monospace">';
+        let html =  '<font color="blue" size="5" face="monospace">';
         html += flushSumPrice(count3)  ;
         html += '</font>';
         $('#amountList').append(html);
