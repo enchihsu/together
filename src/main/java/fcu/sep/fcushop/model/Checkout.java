@@ -24,7 +24,10 @@ public class Checkout {
    * 点对 (x,y) 的水平和垂直距离.
    */
 
-  public Checkout(Long id, String invoice, String delivery, String address, String payment, Integer cid, String account, String book, String amount, String imageUrl, Integer price) {
+  public Checkout(Long id, String invoice,
+                  String delivery, String address, String payment,
+                  Integer cid, String account, String book,
+                  String amount, String imageUrl, Integer price) {
     this.id = id;
     this.invoice = invoice;
     this.delivery = delivery;

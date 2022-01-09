@@ -49,7 +49,8 @@ public class PeopleService {
    * peopleservice.
    */
 
-  public String Register(String account, String password, String name, String address, String birthday, String sex, String mail) {
+  public String aaRegister(String account, String password, String name,
+                         String address, String birthday, String sex, String mail) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "insert into people (ACCOUNT, PASSWORD, NAME, ADDRESS, BIRTHDAY, SEX, MAIL) "
           + "VALUES(:account, :password, :name, :address, :birthday, :sex, :mail)";
@@ -72,7 +73,7 @@ public class PeopleService {
    * peopleservice.
    */
 
-  public String UpdatePeople(String account, String password, String orginpass) {
+  public String aaUpdatePeople(String account, String password, String orginpass) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
       String query = "select PASSWORD" + " from bookstore.people where ACCOUNT =:account";
       var c = connection.createQuery(query)
@@ -82,10 +83,10 @@ public class PeopleService {
       System.out.println(result);
 
       if (result == 0) {
-        String query_1 = "Update bookstore.people "
+        String query1 = "Update bookstore.people "
             + "SET PASSWORD=:password WHERE ACCOUNT = :account";
-        System.out.println(query_1);
-        connection.createQuery(query_1)
+        System.out.println(query1);
+        connection.createQuery(query1)
             .addParameter("account", account)
             .addParameter("password", password)
             .executeUpdate();

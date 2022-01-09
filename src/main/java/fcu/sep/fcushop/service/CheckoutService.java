@@ -27,11 +27,16 @@ public class CheckoutService {
 
   public List<Checkout> getCheckouts(String account) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "select product.NAME book,product.IMAGE_URL imageUrl,product.PRICE price,checkout.AMOUNT amount,"
-          + "checkout.CID cid,checkout.DELIVERY delivery,checkout.ADDRESS address,checkout.INVOICE invoice,checkout.PAYMENT payment"
-          + " from  bookstore.product inner join bookstore.checkout on (product.ID=checkout.BOOK) and checkout.ACCOUNT =:account ";
+      String query = "select product.NAME book,product.IMAGE_URL imageUrl,"
+          + "product.PRICE price,checkout.AMOUNT amount,"
+          + "checkout.CID cid,checkout.DELIVERY delivery,checkout.ADDRESS address,"
+          + "checkout.INVOICE invoice,checkout.PAYMENT payment"
+          + " from  bookstore.product inner join bookstore.checkout "
+          + "on (product.ID=checkout.BOOK) and checkout.ACCOUNT =:account ";
 
-      return connection.createQuery(query).addParameter("account", account).executeAndFetch(Checkout.class);
+      return connection.createQuery(query)
+          .addParameter("account", account)
+          .executeAndFetch(Checkout.class);
     }
   }
 
@@ -39,12 +44,15 @@ public class CheckoutService {
    * cehckoutservice.
    */
 
-  public String checkout(String invoice, String delivery, String address, String payment, String account) {
+  public String checkout(String invoice, String delivery, String address,
+                         String payment, String account) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query3 = "insert into bookstore.checkout(ACCOUNT,BOOK,AMOUNT) select ACCOUNT account,BOOK book,AMOUNT amount "
+      String query3 = "insert into bookstore.checkout(ACCOUNT,BOOK,AMOUNT) "
+          + "select ACCOUNT account,BOOK book,AMOUNT amount "
           + "from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
       connection.createQuery(query3).addParameter("account", account).executeUpdate();
-      String query1 = "update bookstore.checkout set PAYMENT =:payment,DELIVERY =:delivery,INVOICE =:invoice,ADDRESS =:address "
+      String query1 = "update bookstore.checkout "
+          + "set PAYMENT =:payment,DELIVERY =:delivery,INVOICE =:invoice,ADDRESS =:address "
           + "where  bookstore.checkout.ACCOUNT=:account and bookstore.checkout.CID IS NULL";
       System.out.println(query1);
       connection.createQuery(query1)
@@ -55,13 +63,15 @@ public class CheckoutService {
           .addParameter("account", account)
           .executeUpdate();
 
-      String query2 = "update bookstore.checkout set cid = (select * from (select max(CID) cid FROM bookstore.checkout) as a)+1 "
+      String query2 = "update bookstore.checkout "
+          + "set cid = (select * from (select max(CID) cid FROM bookstore.checkout) as a)+1 "
           + "where bookstore.checkout.ACCOUNT =:account and bookstore.checkout.CID IS NULL";
       connection.createQuery(query2)
             .addParameter("account", account)
             .executeUpdate();
 
-      String query6 = "select AMOUNT from bookstore.order1 where bookstore.order1.ACCOUNT =:account";
+      String query6 = "select AMOUNT from bookstore.order1 "
+          + "where bookstore.order1.ACCOUNT =:account";
       var amount = connection.createQuery(query6)
           .addParameter("account", account)
           .executeScalarList(Integer.class);
@@ -84,7 +94,8 @@ public class CheckoutService {
         int b = book.get(i);
         System.out.println("a:" + a);
         System.out.println("b:" + b);
-        String query5 = "update bookstore.product set QUANTITY = QUANTITY-:amount where product.ID = :book;";
+        String query5 = "update bookstore.product "
+            + "set QUANTITY = QUANTITY-:amount where product.ID = :book;";
         connection.createQuery(query5)
             .addParameter("amount", a)
             .addParameter("book", b)

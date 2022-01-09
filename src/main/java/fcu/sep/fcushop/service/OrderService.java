@@ -25,15 +25,19 @@ public class OrderService {
 
   }
   /**
-   * 点对 (x,y) 的水平和垂直距离.
+   * orderservice.
    */
 
   public List<Order> getOrders(String account) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "select product.NAME book,product.IMAGE_URL imageUrl,product.PRICE price,order1.amount amount "
-          + "from bookstore.product inner join bookstore.order1 on product.ID=order1.BOOK where order1.ACCOUNT = :account";
+      String query = "select product.NAME book,product.IMAGE_URL imageUrl,"
+          + "product.PRICE price,order1.amount amount "
+          + "from bookstore.product inner join bookstore.order1 "
+          + "on product.ID=order1.BOOK where order1.ACCOUNT = :account";
       System.out.println(query);
-      return connection.createQuery(query).addParameter("account", account).executeAndFetch(Order.class);
+      return connection.createQuery(query)
+          .addParameter("account", account)
+          .executeAndFetch(Order.class);
     }
   }
 
@@ -51,7 +55,8 @@ public class OrderService {
       var bookid = result3.get(book - 1);
       System.out.println("bookid:" + bookid);
 
-      String query1 = "select count(BOOK) from bookstore.order1 where (ACCOUNT = :account and BOOK = :book)";
+      String query1 = "select count(BOOK) from bookstore.order1 "
+          + "where (ACCOUNT = :account and BOOK = :book)";
       var result = connection.createQuery(query1)
           .addParameter("book", bookid)
           .addParameter("account", account)
@@ -59,7 +64,8 @@ public class OrderService {
       System.out.println("count:" + result);
 
       if (result == 0) {
-        String query = "insert into bookstore.order1 (BOOK, ACCOUNT, AMOUNT) VALUES(:bookname, :account, 1)";
+        String query = "insert into bookstore.order1 (BOOK, ACCOUNT, AMOUNT) "
+            + "VALUES(:bookname, :account, 1)";
         System.out.println(query);
         connection.createQuery(query)
             .addParameter("bookname", bookid)
@@ -73,7 +79,8 @@ public class OrderService {
             .executeScalar(Integer.class);
         System.out.println("quantity:" + quantity);
 
-        String query4 = "select AMOUNT from bookstore.order1 where BOOK = :book and ACCOUNT =:account";
+        String query4 = "select AMOUNT from bookstore.order1 "
+            + "where BOOK = :book and ACCOUNT =:account";
         var amount = connection.createQuery(query4)
             .addParameter("account", account)
             .addParameter("book", bookid)
@@ -81,7 +88,8 @@ public class OrderService {
         System.out.println("amount:" + amount);
 
         if (quantity > amount) {
-          String query = "Update bookstore.order1 SET AMOUNT = order1.AMOUNT+1  WHERE (BOOK = :bookname and ACCOUNT=:account)";
+          String query = "Update bookstore.order1 SET AMOUNT = order1.AMOUNT+1  "
+              + "WHERE (BOOK = :bookname and ACCOUNT=:account)";
           System.out.println(query);
           connection.createQuery(query)
               .addParameter("bookname", bookid)
@@ -138,7 +146,8 @@ public class OrderService {
           .executeScalar(Integer.class);
       System.out.println("quantity:" + quantity);
 
-      String query4 = "select AMOUNT from bookstore.order1 where BOOK = :book and ACCOUNT =:account";
+      String query4 = "select AMOUNT from bookstore.order1 "
+          + "where BOOK = :book and ACCOUNT =:account";
       var amount = connection.createQuery(query4)
           .addParameter("account", account)
           .addParameter("book", bookid)
@@ -146,7 +155,8 @@ public class OrderService {
       System.out.println("amount:" + amount);
 
       if (quantity > amount) {
-        String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT+1 WHERE (BOOK=:id and ACCOUNT=:account)";
+        String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT+1 "
+            + "WHERE (BOOK=:id and ACCOUNT=:account)";
         connection.createQuery(query)
             .addParameter("id", bookid)
             .addParameter("account", account)
@@ -171,7 +181,8 @@ public class OrderService {
       System.out.println("result:" + result);
       var bookid = result.get(id - 1);
       System.out.println("bookid:" + bookid);
-      String query2 = "select order1.AMOUNT from bookstore.order1 where (ACCOUNT = :account and BOOK=:bookid)";
+      String query2 = "select order1.AMOUNT from bookstore.order1 "
+          + "where (ACCOUNT = :account and BOOK=:bookid)";
       var result1 = connection.createQuery(query2)
           .addParameter("account", account)
           .addParameter("bookid", bookid)
@@ -184,7 +195,8 @@ public class OrderService {
             .addParameter("account", account)
             .executeUpdate();
       } else {
-        String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT-1 WHERE (BOOK=:id and ACCOUNT=:account)";
+        String query = "UPDATE bookstore.order1 SET AMOUNT=AMOUNT-1 "
+            + "WHERE (BOOK=:id and ACCOUNT=:account)";
         connection.createQuery(query)
             .addParameter("id", bookid)
             .addParameter("account", account)

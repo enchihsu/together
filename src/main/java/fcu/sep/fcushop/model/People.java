@@ -6,7 +6,7 @@ package fcu.sep.fcushop.model;
 
 public class People {
 
-  private String people_name;
+  private String peoplename;
 
   private String account;
 
@@ -31,8 +31,9 @@ public class People {
    * People.
    */
 
-  public People(String people_name, String account, String password, String address, String birthday, String sex, String mail) {
-    this.people_name = people_name;
+  public People(String peoplename, String account, String password,
+                String address, String birthday, String sex, String mail) {
+    this.peoplename = peoplename;
     this.account = account;
     this.password = password;
     this.address = address;
@@ -42,11 +43,11 @@ public class People {
   }
 
   public String getPeople_name() {
-    return people_name;
+    return peoplename;
   }
 
-  public void setPeople_name(String people_name) {
-    this.people_name = people_name;
+  public void setPeople_name(String peoplename) {
+    this.peoplename = peoplename;
   }
 
   public String getAccount() {

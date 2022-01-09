@@ -6,7 +6,12 @@ import fcu.sep.fcushop.service.LikeService;
 import fcu.sep.fcushop.service.ProductService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -17,13 +22,13 @@ import org.springframework.web.bind.annotation.*;
 public class LikeController {
 
   @Autowired
-  LikeService LikeManager;
+  LikeService aaLikeManager;
 
   @GetMapping("/likes")
   public List<Like> getLikes(
       @RequestParam("account") String account
   ) {
-    return LikeManager.getLikes(account);
+    return aaLikeManager.getLikes(account);
   }
 
   @GetMapping("/addlike/{like}")
@@ -31,7 +36,7 @@ public class LikeController {
       @RequestParam("like") Integer like,
       @RequestParam("account") String account
   ) {
-    return LikeManager.addlike(like, account);
+    return aaLikeManager.addlike(like, account);
   }
 
   @GetMapping("/addliketocart/{id}")
@@ -39,6 +44,6 @@ public class LikeController {
       @RequestParam("id") Integer id,
       @RequestParam("account") String account
   ) {
-    return LikeManager.addliketocart(id, account);
+    return aaLikeManager.addliketocart(id, account);
   }
 }

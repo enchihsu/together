@@ -32,12 +32,15 @@ public class LikeService {
 
   public List<Like> getLikes(String account) {
     try (Connection connection = sql2oDbHandler.getConnector().open()) {
-      String query = "select product.PRICE price, product.NAME name, product.IMAGE_URL imageUrl, like1.QUANTITY quantity\n"
+      String query = "select product.PRICE price, product.NAME name, "
+          + "product.IMAGE_URL imageUrl, like1.QUANTITY quantity\n"
           + "    FROM bookstore.product\n"
           + "    INNER JOIN bookstore.like1\n"
           + "    ON ((bookstore.product.ID=bookstore.like1.BOOK) and like1.ACCOUNT = :account);";
       //System.out.println(query);
-      return connection.createQuery(query).addParameter("account", account).executeAndFetch(Like.class);
+      return connection.createQuery(query)
+          .addParameter("account", account)
+          .executeAndFetch(Like.class);
     }
   }
 
@@ -54,7 +57,8 @@ public class LikeService {
       var book = result1.get(like - 1);
       System.out.println("book:" + book);
 
-      String query1 = "select count(BOOK) from bookstore.like1 where (ACCOUNT = :account and BOOK = :bookname)";
+      String query1 = "select count(BOOK) from bookstore.like1 "
+          + "where (ACCOUNT = :account and BOOK = :bookname)";
       var result = connection.createQuery(query1)
           .addParameter("bookname", book)
           .addParameter("account", account)
@@ -86,7 +90,8 @@ public class LikeService {
       System.out.println("result:" + result);
       var book = result.get(id - 1);
       System.out.println("book:" + book);
-      String query2 = "select count(BOOK) from bookstore.order1 where (ACCOUNT = :account and BOOK = :book)";
+      String query2 = "select count(BOOK) from bookstore.order1 "
+          + "where (ACCOUNT = :account and BOOK = :book)";
       var result2 = connection.createQuery(query2)
           .addParameter("account", account)
           .addParameter("book", book)
@@ -94,7 +99,8 @@ public class LikeService {
       System.out.println("count:" + result2);
 
       if (result2 == 0) {
-        String query = "insert into bookstore.order1 (BOOK, ACCOUNT, AMOUNT) VALUES(:book, :account, 1)";
+        String query = "insert into bookstore.order1 (BOOK, ACCOUNT, AMOUNT) "
+            + "VALUES(:book, :account, 1)";
         System.out.println(query);
         connection.createQuery(query)
             .addParameter("account", account)
@@ -112,14 +118,16 @@ public class LikeService {
             .addParameter("book", book)
             .executeScalar(Integer.class);
         System.out.println("quantity:" + quantity);
-        String query4 = "select AMOUNT from bookstore.order1 where BOOK = :book and ACCOUNT =:account";
+        String query4 = "select AMOUNT from bookstore.order1 "
+            + "where BOOK = :book and ACCOUNT =:account";
         var amount = connection.createQuery(query4)
-            .addParameter("account",account)
+            .addParameter("account", account)
             .addParameter("book", book)
             .executeScalar(Integer.class);
         System.out.println("amount:" + amount);
         if (quantity > amount) {
-          String query = "Update bookstore.order1 SET AMOUNT = order1.AMOUNT+1  WHERE (BOOK = :book and ACCOUNT=:account)";
+          String query = "Update bookstore.order1 SET AMOUNT = order1.AMOUNT+1  "
+              + "WHERE (BOOK = :book and ACCOUNT=:account)";
           System.out.println(query);
           connection.createQuery(query)
               .addParameter("account", account)

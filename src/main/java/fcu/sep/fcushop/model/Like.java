@@ -30,7 +30,8 @@ public class Like {
    * like.
    */
 
-  public Like(long id, String account, int quantity, int price, String name, String imageUrl, int book) {
+  public Like(long id, String account, int quantity, int price,
+              String name, String imageUrl, int book) {
     this.id = id;
     this.account = account;
     this.quantity = quantity;

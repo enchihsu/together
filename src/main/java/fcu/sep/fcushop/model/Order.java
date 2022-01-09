@@ -29,7 +29,8 @@ public class Order {
    * 点对 (x,y) 的水平和垂直距离.
    */
 
-  public Order(String id, String account, String book, String imageUrl, String price, String amount) {
+  public Order(String id, String account, String book,
+               String imageUrl, String price, String amount) {
     this.id = id;
     this.account = account;
     this.book = book;
