@@ -31,6 +31,12 @@
 
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
                 <li class="nav-item">
+                    <span class="nav-link disabled">hi!</span>
+                </li>
+                <li class="nav-item">
+                    <span id="show" class="nav-link disabled"></span>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">登出</a>
                 </li>
                 <li class="nav-item">
@@ -150,6 +156,21 @@
     emptyOrders();
     getOrders('orders')
   });
+    $(function(){
+    //console.log(location.search.concat());
+    //manyValues();
+    $("#show").html(oneValues());
+    })
+    //接收一個值
+    function oneValues(){
+    var result;
+    var url=window.location.search; //獲取url中"?"符後的字串
+    if(url.indexOf("?")!=-1){
+        result = url.substr(url.indexOf("=")+1);
+       }
+    return result;
+    }
+    var test = oneValues();
 
   $('#reallyCheckout').click(function() {
       const invoice= $("[name='pay']:checked").val();
@@ -163,12 +184,13 @@
         $.ajax({
             url:"/reallycheckout",
             type:"POST",
-            data:{"invoice":invoice,"delivery":delivery,"address":address,"payment":payment},
+
+            data:{"account" : test,"invoice":invoice,"delivery":delivery,"address":address,"payment":payment},
             dataType:"text",
         }).done(function(text) {
             if (text=="Success"){
                 alert("訂單已完成");
-                location.href="index.html";
+                window.location.href='logining.html?value='+oneValues();
             }else {
                 alert("error");
             }
@@ -285,7 +307,9 @@
       $.ajax({
           // The URL for the request
           url: targetUrl,
-
+           data: {
+                account : test
+            },
           // Whether this is a POST or GET request
           type: "GET",
 

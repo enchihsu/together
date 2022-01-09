@@ -162,14 +162,10 @@ Optional JavaScript; choose one of the two! -->
     emptyCheckouts();
     getCheckouts('checkouts');
   });
-<<<<<<< HEAD
-    $(function(){
-=======
 
   $(function(){
     //console.log(location.search.concat());
     //manyValues();
->>>>>>> f89e794565e27cf5ab66137eb7a332de7cb83452
     $("#show").html(oneValues());
     })
     //接收一個值
@@ -181,16 +177,11 @@ Optional JavaScript; choose one of the two! -->
        }
     return result;
     }
-<<<<<<< HEAD
     var test = oneValues();
+
     function emptyCheckouts() {
       $('#showOrder').empty();
       $('#amountList').remove();
-=======
-
-    function emptyProducts() {
-      $('#productList').empty();
->>>>>>> f89e794565e27cf5ab66137eb7a332de7cb83452
     }
 
     var count3=[];
@@ -199,6 +190,7 @@ Optional JavaScript; choose one of the two! -->
     var kit =0;
     var hit =0;
     function addCheckouts(checkouts) {
+
       var i=0;
       var flag = 1;
       for ( let checkout of checkouts ) {
@@ -219,11 +211,13 @@ Optional JavaScript; choose one of the two! -->
         }
          a = checkout.cid;
       }
+      a=0;
       count1[hit]=count3[i];
       for ( let checkout of checkouts ) {
         if (a != checkout.cid){
+            console.log(checkout.cid);
             let html = '<tr>';
-            html += '<td width="100" height="100">';
+            html += '<td width="80" height="100">';
             html += '<p>' + checkout.cid + '</p>';
             html += '</td>';
             html += '<td width="100" height="100">';
@@ -277,7 +271,9 @@ Optional JavaScript; choose one of the two! -->
       $.ajax({
           // The URL for the request
           url: targetUrl,
-
+          data: {
+                account : test
+            },
           // Whether this is a POST or GET request
           type: "GET",
 
