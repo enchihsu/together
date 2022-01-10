@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" onclick="window.location.href='logining.html?value='+oneValues()">首頁</a>
+          <a class="nav-link active" aria-current="page" href="index.html">首頁</a>
         </li>
         </li>
 
@@ -38,14 +38,14 @@
           <span id="show" class="nav-link disabled"></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.html">登出</a>
+          <a class="nav-link" href="#">登出</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" href="membercenter.html">會員中心</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="shopping_cart.html">購物車</a>
+          <a class="nav-link" href="shopping_cart.html">購物車(0)</a>
         </li>
       </ul>
 
@@ -119,21 +119,22 @@
           <label for= >新密碼</label><br />
           <label for= >請再輸入一次新密碼</label><br />
           <br />
+          <button class="bottomstyle" onclick="submit()">確定更改</button>
+          <button class="bottomstyle" onclick="overlay()">取消</button>
         </div>
       </div>
+
 
 
       <div class="Data-Items">
         <input class="inputbox" id="initpw" type="password" οnpaste="return false;" οndragenter="return false;" οncοntextmen="return false" /><br />
         <input id="pw" class="inputbox" type="password" placeholder=""  /> <input type="checkbox" onclick="myFunction()"> Show Password <br />
         <input id="repw" class="inputbox" type="password" placeholder="" /><br />
-        <button class="bottomstyle" onclick="submit()">確定更改</button>
-        <button class="bottomstyle" onclick="overlay()">取消</button>
       </div>
     </div>
   </div>
 </div>
-  </div>
+</div>
 </div>
 </body>
 <!-- Optional JavaScript; choose one of the two! -->
